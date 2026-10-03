@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fuel price pass-through in ten U.S. cities | Hari Krishna Amba</title>
+<meta name="author" content="Hari Krishna Amba">
+<meta name="description" content="How quickly a change in wholesale gasoline reaches the pump in ten U.S. cities, what the lag is worth, and where the margin moved in 2026. 613 weeks of public data.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A 10&cent; wholesale move puts $427K of street margin in play in Seattle and $99K in Chicago">
+<meta property="og:description" content="The slowest and the fastest of ten U.S. cities at passing a wholesale gasoline move to the pump, what the lag is worth, and where the margin went in 2026. 613 weeks of public data.">
+<meta property="og:url" content="https://harikrishnaamba.github.io/fuel-margin/">
+<meta property="og:image" content="https://harikrishnaamba.github.io/fuel-margin/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Jost:wght@300;400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0E100F; --panel:#161917; --line:#282D29; --line-2:#363C37;
+  --text:#ECE6DA; --soft:#CFC8BA; --muted:#9C968A; --faint:#6D695F;
+  --gold:#C9B387; --gold-2:#DCCAA4; --ivory:#EFE8DA;
+  --display:"Libre Caslon Display","Libre Caslon Text","Didot","Georgia",serif;
+  --serif:"Libre Caslon Text","Georgia",serif;
+  --sans:"Jost","Futura","Avenir Next","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;font-variant-numeric:lining-nums;background:var(--bg);color:var(--text);font:300 17px/1.75 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--bg)}
+a{color:var(--text);text-decoration:none}
+:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:clamp(16px,5vw,56px)}
+.lab{font:400 12.5px/1.6 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:0}
+.top{position:sticky;top:0;z-index:30;background:rgba(14,16,15,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;padding-block:18px}
+.brand{display:flex;flex-direction:column;gap:7px;margin-right:auto}
+.brand .bn{font:400 27px/1 var(--display);letter-spacing:.01em;color:var(--ivory)}
+.brand .br{font:400 10.5px/1 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.brand:hover .bn{color:var(--gold-2)}
+@media (max-width:480px){.brand .bn{font-size:21px}.brand .br{display:none}}
+.nav{display:flex;gap:26px}
+.nav a{font:400 12.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+.nav a:hover{color:var(--gold-2)}
+@media (max-width:1100px){.nav{display:none}}
+.hlinks{display:flex;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:400 11.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ivory);border:1px solid var(--line-2);padding:10px 14px;transition:border-color .25s,color .25s,background .25s;white-space:nowrap}
+.pill:hover{border-color:var(--gold);color:var(--gold-2)}
+.pill.solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.pill.solid:hover{background:var(--gold-2);border-color:var(--gold-2);color:var(--bg)}
+@media (max-width:480px){.hide-sm{display:none}.top .wrap{gap:14px}}
+.alinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.about{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(24px,5vw,64px);align-items:start;margin-top:8px}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+.about .role{font:400 12.5px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:10px 0 0}
+.about .cta{margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+.about .cta p{margin:0;font:400 clamp(20px,2vw,26px)/1.3 var(--display);color:var(--ivory)}
+.about .cta .mail{display:inline-block;margin-top:10px;font-size:16px;color:var(--soft);border-bottom:1px solid var(--line-2)}
+.about .cta .mail:hover{color:var(--gold-2);border-color:var(--gold)}
+dl.facts{margin:0;border-top:1px solid var(--line)}
+dl.facts div{padding:16px 0;border-bottom:1px solid var(--line)}
+dl.facts dt{font:400 12px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+dl.facts dd{margin:4px 0 0;color:var(--soft);font-size:16px;line-height:1.55}
+.hero{padding-block:clamp(36px,6vh,72px) clamp(36px,6vh,64px)}
+.hgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.mapfig{position:relative}
+.mapfig::before{content:"";position:absolute;inset:-8% -6%;background:radial-gradient(ellipse at 42% 48%,rgba(201,179,135,.09),rgba(14,16,15,0) 64%);pointer-events:none}
+@media (max-width:940px){.mapfig::before{inset:-6% 0}}
+.mapfig .cap{position:relative;font:400 12px/1.6 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0}
+.mapfig .capsub{position:relative;font-size:14px;line-height:1.5;color:var(--muted);margin:4px 0 0}
+.mapfig .chart{margin-top:4px}
+.chart text.halo{paint-order:stroke;stroke:#0E100F;stroke-width:4px;stroke-linejoin:round}
+.chart text.big{fill:var(--ivory);font-size:26px;font-weight:500}
+.chart text.cap{fill:var(--soft);font-size:11px;letter-spacing:.2em}
+.chart text.small{fill:var(--muted);font-size:12px}
+.chart text.week{fill:var(--ivory);font-family:var(--display);font-size:30px}
+.mapctl{position:relative;margin-top:6px}
+.tlab{font:400 22px/1.2 var(--display);color:var(--ivory)}
+@media (max-width:940px){.hgrid{grid-template-columns:1fr}}
+.hgrid .fig{margin:0}
+.by{margin:22px 0 0;font:400 12.5px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 clamp(27px,2.9vw,37px)/1.16 var(--display);letter-spacing:-.01em;margin:18px 0 0;color:var(--ivory);text-wrap:balance}
+.lede{margin:22px 0 0;max-width:62ch;color:var(--soft);font-size:clamp(16.5px,1.35vw,18.5px)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px}
+.tile{display:block;background:var(--bg);padding:24px 24px 26px;transition:background .25s}
+a.tile:hover{background:var(--panel)}
+a.tile:hover .k{color:var(--gold-2)}
+.tile .k{font:400 12px/1.5 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);transition:color .25s}
+.tile .v{font:500 clamp(32px,3.1vw,40px)/1.05 var(--sans);color:var(--ivory);margin-top:12px;letter-spacing:-.01em}
+.tile .d{color:var(--soft);font-size:15.5px;line-height:1.55;margin-top:10px}
+@media (max-width:760px){.tiles{grid-template-columns:1fr}}
+section{padding-block:clamp(44px,7vh,76px);border-top:1px solid var(--line)}
+h2{font:400 clamp(23px,2.3vw,30px)/1.2 var(--display);margin:14px 0 0;color:var(--text);text-wrap:balance}
+.body{color:var(--soft)}
+.body p{margin:18px 0 0}
+.body strong{font-weight:500;color:var(--text)}
+.fig{margin:34px 0 0;background:var(--panel);border:1px solid var(--line);padding:22px clamp(14px,2.4vw,26px) 16px}
+.fig h3{font:400 15.5px/1.45 var(--sans);color:var(--text);margin:0}
+.fig .sub{font-size:14px;line-height:1.5;color:var(--muted);margin:4px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 0 4px;font-size:13.5px;line-height:1.4;color:var(--soft)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend i.dot{width:10px;height:10px;border:0;border-radius:50%;background:currentColor}
+.legend i.dia{width:8px;height:8px;border:0;background:currentColor;transform:rotate(45deg);margin:0 1px}
+.chart{position:relative;margin-top:6px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--sans);fill:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums lining-nums}
+.chart text.end{fill:var(--text);font-size:13px}
+.chart text.row{fill:var(--soft);font-size:13px}
+.chart text.pt{fill:var(--text);font-size:12.5px}
+.chart text.ttl{fill:var(--text);font-size:14px;font-weight:400}
+.tip{position:absolute;pointer-events:none;background:#1D211E;border:1px solid var(--line-2);padding:9px 12px 10px;font-size:13px;line-height:1.5;color:var(--soft);min-width:150px;opacity:0;transition:opacity .12s;z-index:5;white-space:nowrap}
+.tip b{display:block;font-weight:400;color:var(--muted);font-size:12px;letter-spacing:.06em;margin-bottom:4px}
+.tip div{display:flex;align-items:center;gap:8px}
+.tip div i{display:inline-block;width:12px;border-top:2px solid currentColor}
+.tip div em{font-style:normal;color:var(--text);font-weight:500;margin-left:auto;padding-left:14px;font-variant-numeric:tabular-nums}
+.multi{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.multi.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:820px){.multi,.multi.two{grid-template-columns:1fr}}
+details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font:400 12px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;width:16px;color:var(--gold)}
+details[open] summary::before{content:"\2212"}
+summary:hover{color:var(--gold-2)}
+.tw{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5;font-variant-numeric:tabular-nums lining-nums}
+th,td{text-align:right;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child,table.l2 th:nth-child(2),table.l2 td:nth-child(2){text-align:left}
+th{font-weight:400;color:var(--muted);font-size:12.5px}
+td{color:var(--soft)}
+td.hl{color:var(--text)}
+tr.em td{color:var(--text);background:rgba(201,179,135,.06)}
+.note{font-size:14px;line-height:1.6;color:var(--muted);margin:12px 0 0}
+.sim{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:26px;align-items:start;margin-top:8px}
+@media (max-width:820px){.sim{grid-template-columns:1fr}}
+.seg{display:flex;border:1px solid var(--line-2)}
+.seg button{flex:1;background:transparent;color:var(--muted);border:0;border-right:1px solid var(--line-2);padding:11px 8px;font:400 13px/1 var(--sans);letter-spacing:.06em;cursor:pointer;transition:background .2s,color .2s}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--bg)}
+.pick{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.pick select{flex:1;background:var(--panel);color:var(--soft);border:1px solid var(--line-2);padding:8px 10px;font:400 14px/1.2 var(--sans)}
+.ctl{margin-top:22px}
+.ctl label{display:flex;justify-content:space-between;font-size:14px;color:var(--soft)}
+.ctl label b{font-weight:500;color:var(--text);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;margin-top:12px;accent-color:#C9B387}
+.out{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+.out .k{font:400 12px/1.5 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.out .v{font:500 30px/1.15 var(--sans);color:var(--ivory);margin-top:8px}
+.out .d{font-size:14.5px;line-height:1.55;color:var(--soft);margin-top:8px}
+.so{margin:30px 0 0;border-left:1px solid var(--gold);padding:2px 0 2px 18px;color:var(--soft)}
+.so b{display:block;font:400 12px/1.6 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+ol.next{margin:20px 0 0;padding:0;list-style:none;counter-reset:n}
+ol.next li{counter-increment:n;position:relative;padding:16px 0 16px 46px;border-top:1px solid var(--line);color:var(--soft)}
+ol.next li::before{content:"0" counter(n);position:absolute;left:0;top:19px;font:400 12.5px/1.6 var(--sans);letter-spacing:.2em;color:var(--gold)}
+ol.next li strong{font-weight:500;color:var(--text)}
+ul.plain{margin:16px 0 0;padding-left:20px;color:var(--soft)}
+ul.plain li{margin-top:8px}
+ul.plain strong{font-weight:500;color:var(--text)}
+footer{border-top:1px solid var(--line);padding-block:30px 44px;color:var(--muted);font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+footer a{color:var(--soft);border-bottom:1px solid var(--line-2)}
+footer a:hover{color:var(--gold-2);border-color:var(--gold)}
+@media (min-width:1360px){.wrap{max-width:1240px}body{font-size:17.5px}}
+@media (min-width:1600px){
+  .wrap{max-width:1440px}
+  body{font-size:18.5px}
+  h1{font-size:46px}
+  h2{font-size:35px}
+  .lede{font-size:20.5px}
+  .brand .bn{font-size:31px}
+  .brand .br{font-size:11.5px}
+  .nav a,.pill{font-size:13px}
+  .tile .v{font-size:48px}
+  .tile .d{font-size:17px}
+  .fig h3{font-size:17px}
+  .fig .sub,.note,table{font-size:15px}
+  .mapfig .capsub{font-size:15px}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://harikrishnaamba.github.io/"><span class="bn">Hari Krishna Amba</span><span class="br">Senior Pricing Analyst</span></a>
+  <nav class="nav"><a href="#speed">Speed</a><a href="#direction">Direction</a><a href="#y2026">2026</a><a href="#worth">Worth</a><a href="#about">About</a></nav>
+  <div class="hlinks"><a class="pill hide-sm" href="https://harikrishnaamba.github.io/">Portfolio</a><a class="pill solid" href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">LinkedIn &#8599;</a></div>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div class="hgrid">
+    <div>
+      <p class="lab">Fuel pricing note &middot; October 2026</p>
+      <h1 id="h1"></h1>
+      <p class="lede" id="lede"></p>
+    </div>
+    <div class="mapfig">
+      <p class="cap">Watch a 10&cent; wholesale move reach the pump</p>
+      <p class="capsub">Each ring fills as the pump price catches up, at the speed measured in that city. Gold marks the largest refinery in each region.</p>
+      <div class="chart" id="cMap"></div>
+      <div class="mapctl"><span class="tlab" id="tlab"></span></div>
+    </div>
+  </div>
+  <div class="tiles">
+    <a class="tile" href="#speed"><div class="k">01 &middot; Speed</div><div class="v" id="t1"></div><div class="d" id="t1d"></div></a>
+    <a class="tile" href="#direction"><div class="k">02 &middot; Direction</div><div class="v" id="t2"></div><div class="d" id="t2d"></div></a>
+    <a class="tile" href="#y2026"><div class="k">03 &middot; 2026</div><div class="v" id="t3"></div><div class="d" id="t3d"></div></a>
+  </div>
+</div>
+
+<section id="speed"><div class="wrap">
+  <p class="lab">01 &middot; Speed</p>
+  <h2>Chicago and Seattle are the two ends of the country</h2>
+  <div class="body">
+    <p>When wholesale gasoline moves 10 cents, the pump does not move 10 cents the next day. For each of the ten cities that EIA surveys every Monday, I measured how much of a wholesale move is in the pump price at each weekly survey after it.</p>
+    <p id="speedText"></p>
+  </div>
+  <div class="fig">
+    <h3>Street margin in play after a 10&cent; wholesale move, ten cities ranked</h3>
+    <p class="sub">Dollars per million gallons sold a week, while the pump catches up. Slowest first.</p>
+    <div class="chart" id="c0"></div>
+  </div>
+  <div class="fig">
+    <h3>Share of a wholesale move that has reached the pump</h3>
+    <p class="sub">By weeks since the move. The shaded bands are 95% confidence intervals for Chicago and Seattle.</p>
+    <div class="legend" id="lg1"></div>
+    <div class="chart" id="c1"></div>
+    <details><summary>Numbers for all ten cities</summary><div class="tw" id="tb1"></div></details>
+    <details><summary>Does the benchmark I chose matter?</summary>
+    <p class="note" id="benchText"></p>
+    <div class="tw" id="tbB"></div></details>
+  </div>
+  <div class="body">
+    <p id="whyText"></p>
+  </div>
+  <p class="so"><b>What a pricing team can do with it</b>Set the response rule by market, not nationally. In Chicago the street has caught up within three weeks, so the room to lead or to hold is short. In Seattle a wholesale move sits in street margin for two months. That makes Seattle the market to test whether moving in week one instead of week four costs gallons.</p>
+</div></section>
+
+<section id="direction"><div class="wrap">
+  <p class="lab">02 &middot; Direction</p>
+  <h2>Rises reach the pump faster than falls in nine of ten cities. In Chicago that is new.</h2>
+  <div class="body">
+    <p>The old line is that pump prices go up like a rocket and come down like a feather. I split wholesale moves into rises and falls and measured each.</p>
+    <p id="dirText"></p>
+  </div>
+  <div class="fig">
+    <h3>Share of a wholesale move at the pump by the first weekly survey</h3>
+    <p class="sub">After a rise and after a fall, 2015 to 2026. Cities with the widest difference first.</p>
+    <div class="legend" id="lg2"></div>
+    <div class="chart" id="c2"></div>
+    <details><summary>Does it hold in every period?</summary><div class="tw" id="tb2"></div>
+    <p class="note">Share at the pump at the first survey after the move, rise / fall. A t value above about 2 means the difference is unlikely to be chance. 2020 is left out of the two halves.</p></details>
+  </div>
+  <div class="body">
+    <p id="eraText"></p>
+  </div>
+  <div class="fig">
+    <h3>Chicago: what changed is the three weeks after a fall</h3>
+    <p class="sub">Share of a wholesale move at the pump, by weeks since the move. Held so it never steps back and capped at 100%, as in the simulator below.</p>
+    <div class="legend" id="lg2b"></div>
+    <div class="multi two" id="c2b"></div>
+  </div>
+  <p class="so" id="dirSo"></p>
+</div></section>
+
+<section id="y2026"><div class="wrap">
+  <p class="lab">03 &middot; 2026</p>
+  <h2>In 2026 the margin did not vanish. It moved upstream.</h2>
+  <div class="body">
+    <p id="y26Text"></p>
+    <p id="y26Text2"></p>
+  </div>
+  <div class="fig">
+    <h3 id="c3aT"></h3>
+    <p class="sub">Change between October to December 2025 and July to September 2026, quarter averages. Cents a gallon.</p>
+    <div class="chart" id="c3a"></div>
+  </div>
+  <div class="body">
+    <p id="y26Text3"></p>
+  </div>
+  <div class="fig">
+    <h3>How much the gap between pump and wholesale narrowed, by city</h3>
+    <p class="sub">Cents a gallon, October to December 2025 against July to September 2026. Every city against Gulf Coast wholesale.</p>
+    <div class="chart" id="c3b"></div>
+    <details><summary>Numbers, and how much is timing</summary><div class="tw" id="tb3"></div>
+    <p class="note">Timing is the part explained by the pump still catching up with wholesale moves of the previous eight weeks, using each city's own measured speed.</p></details>
+  </div>
+  <div class="body">
+    <p id="y26Text4"></p>
+    <p id="y26Text5"></p>
+  </div>
+  <div class="fig">
+    <h3>Week by week: three gaps along the same gallon</h3>
+    <p class="sub">Dollars a gallon, October 2025 to September 2026.</p>
+    <div class="legend" id="lg3"></div>
+    <div class="chart" id="c3"></div>
+    <details><summary>Numbers</summary><div class="tw" id="tb3w"></div></details>
+  </div>
+  <p class="so" id="y26So"></p>
+</div></section>
+
+<section id="worth"><div class="wrap">
+  <p class="lab">04 &middot; What the lag is worth</p>
+  <h2>The lag has a price, and it is different on the way up and on the way down</h2>
+  <div class="body">
+    <p>While the pump is catching up with a wholesale rise, the street side carries the difference. While it is coming down after a fall, the street side keeps it. Added up over the nine weekly surveys after a 10&cent; move:</p>
+  </div>
+  <div class="fig">
+    <h3>Street margin effect of a 10&cent; wholesale move</h3>
+    <p class="sub">Dollars per million gallons sold each week, against passing the move through at once.</p>
+    <div class="tw" id="tbL"></div>
+    <p class="note" id="firmText"></p>
+  </div>
+  <div class="body"><p>Try any city and any move:</p></div>
+  <div class="fig">
+    <div class="sim">
+      <div>
+        <div class="seg" id="simM" role="group" aria-label="Market">
+          <button type="button" data-m="chicago" aria-pressed="true">Chicago</button>
+          <button type="button" data-m="seattle" aria-pressed="false">Seattle</button>
+        </div>
+        <div class="pick"><label for="simS">or</label><select id="simS" aria-label="Another city"></select></div>
+        <div class="ctl">
+          <label for="simR"><span>Wholesale move</span><b id="simV"></b></label>
+          <input type="range" id="simR" min="-30" max="30" step="1" value="10">
+        </div>
+        <div class="out">
+          <div class="k" id="simK"></div>
+          <div class="v" id="simO"></div>
+          <div class="d" id="simD"></div>
+        </div>
+      </div>
+      <div>
+        <h3 id="simT"></h3>
+        <p class="sub">Cents per gallon. The line is the wholesale move, the bars are how much of it the pump has taken.</p>
+        <div class="chart" id="c5"></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">Built from the measured responses above: the average behaviour of each market, 2015 to 2026.</p>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <p class="lab">05 &middot; Next</p>
+  <h2>What I would do with a pricing team's own data</h2>
+  <ol class="next">
+    <li><strong>Swap the public marker for rack and delivered cost by terminal.</strong> Then the gap splits into basis, rack margin and street margin, and the 2026 shift can be placed on the right link of the chain.</li>
+    <li><strong>Split it by channel.</strong> Where sites are company operated, the supplier carries the lag. Where a marketer or dealer sets the street price, they carry it. Rack data shows where that line falls in each market.</li>
+    <li><strong>Run it daily, by site and competitor set.</strong> That catches the Tuesday restoration and shows where a brand leads price moves and where it follows them.</li>
+    <li><strong>Add volume.</strong> Holding price after a wholesale fall earns margin and costs gallons. With volume the trade can be priced instead of argued.</li>
+  </ol>
+</div></section>
+
+<section id="method"><div class="wrap">
+  <p class="lab">06 &middot; Method</p>
+  <h2>How I measured it</h2>
+  <ul class="plain">
+    <li><strong>Data.</strong> US Energy Information Administration, public files. Weekly retail price of regular gasoline for the ten cities EIA surveys (Monday survey) and daily wholesale spot prices, which EIA publishes from Refinitiv, an LSEG business. <span id="mMeta"></span></li>
+    <li><strong>Benchmarks.</strong> Each city is set against the nearest wholesale marker EIA publishes: New York Harbor conventional regular for Boston and New York; Gulf Coast conventional regular for Chicago, Cleveland, Denver, Houston and Miami; Los Angeles RBOB for Los Angeles, San Francisco and Seattle. The ranking is repeated against Gulf Coast gasoline and against Brent crude for all ten.</li>
+    <li><strong>Timing.</strong> Each Monday pump price is matched to the average wholesale price of the trading week that ended the Friday before.</li>
+    <li><strong>Model.</strong> The weekly change in the pump price is regressed on the wholesale change of the same week and of the eight weeks before, in cents per gallon. Rises and falls get separate coefficients in the direction test. Standard errors allow for autocorrelation (Newey-West, eight lags).</li>
+    <li><strong>Street margin in play.</strong> For each of the nine surveys after a 10&cent; move, the part of the move not yet in the pump price, added up and multiplied by one million gallons a week. It is what the street side gives up after a rise or keeps after a fall, against passing the move on at once. Responses are held so they never step back, and capped at 100%.</li>
+    <li><strong>Taxes.</strong> Fixed per-gallon taxes do not affect the speed results. Illinois also applies its sales tax to gasoline (6.25% at the state rate, with local sales taxes on top), and a percentage tax turns a 10&cent; move before tax into a little more than 10&cent; at the pump. That is why Chicago ends slightly above 100%.</li>
+    <li><strong>What the gap holds.</strong> The gap between pump and wholesale holds everything after the spot market: basis to the local market, rack and retail margin, freight, taxes and, in Washington since 2023, the cost of carbon allowances. I track changes in it.</li>
+    <li><strong>Sources beyond the price files.</strong> 2026 market events: EIA, Today in Energy and Short-Term Energy Outlook. Washington allowance prices: Department of Ecology auction results, June and September 2026. Pacific Northwest supply: EIA, PADD 5 Transportation Fuels Markets. Price cycles: Lewis and Noel, &ldquo;The Speed of Gasoline Price Response in Markets with and without Edgeworth Cycles&rdquo;, Review of Economics and Statistics, 2011.</li>
+  </ul>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <p class="lab">07 &middot; About the author</p>
+  <div class="about">
+    <div>
+      <h2>Hari Krishna Amba</h2>
+      <p class="role">Senior Pricing Analyst</p>
+      <div class="body">
+        <p>A pricing analyst with a data engineering foundation. I turn invoice data into the one decision a leader needs, and build the pipelines that make those numbers trustworthy.</p>
+        <p>I built this note from public data to show how I take on a pricing problem in a new market: measure it properly, test it against more than one benchmark, and put a dollar figure on what it means for margin.</p>
+      </div>
+      <div class="cta">
+        <p>Always glad to talk pricing.</p>
+        <a class="mail" href="mailto:ambaharikrishna@gmail.com">ambaharikrishna@gmail.com</a>
+        <div class="alinks"><a class="pill solid" href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">Connect on LinkedIn &#8599;</a><a class="pill" href="https://harikrishnaamba.github.io/">See my portfolio</a><a class="pill" href="mailto:ambaharikrishna@gmail.com">Email me</a></div>
+      </div>
+    </div>
+    <dl class="facts">
+      <div><dt>Current</dt><dd>Senior Pricing Analyst</dd></div>
+      <div><dt>Foundation</dt><dd>Four years building data pipelines and analytics on AWS, Snowflake and Databricks</dd></div>
+      <div><dt>Education</dt><dd>M.S. Computer Science, Binghamton University</dd></div>
+      <div><dt>This note</dt><dd>613 weeks of public price data, ten U.S. cities, October 2026</dd></div>
+    </dl>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>Hari Krishna Amba &middot; Senior Pricing Analyst</span>
+  <span><a href="https://harikrishnaamba.github.io/">Portfolio</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="mailto:ambaharikrishna@gmail.com">Email</a></span>
+  <span>A personal analysis of public data. Views are my own. Source: U.S. Energy Information Administration; spot prices from Refinitiv, an LSEG business, as published by EIA.</span>
+</div></footer>
+
+<script>
+const D = {"meta":{"weeks":613,"start":"2015-01-05","end":"2026-09-28"},"cities":{"boston":{"name":"Boston","bench":"New York Harbor","n":613,"cum":[0.3445,0.536,0.6417,0.7099,0.8006,0.8293,0.8557,0.9143,0.9503],"se":[0.039,0.043,0.0443,0.0431,0.0462,0.0495,0.055,0.0587,0.0624],"lag":241785.0,"lag_raw":241785.0,"lag_se":40412.0,"w90":7,"vol":6.1,"alt":{"gulf":{"lag":312857.0,"w1":0.465,"w4":0.6895,"w8":0.8879,"rank":9},"brent":{"lag":271730.0,"w1":0.5321,"w4":0.7199,"w8":0.957,"rank":9}},"up":[0.5533,0.7178,0.7386,0.7396,0.8286,0.8318,0.8551,0.919,0.9655],"dn":[0.1214,0.338,0.5258,0.6401,0.7337,0.7688,0.8156,0.8791,0.8871],"lag_up":185059.0,"lag_dn":329048.0,"lag_up_se":38060.0,"lag_dn_se":63381.0,"per":{"all":{"up0":0.5533,"dn0":0.1214,"t0":4.68,"t1":4.74},"p1519":{"up0":0.5954,"dn0":0.077,"t0":2.15,"t1":3.01},"p2126":{"up0":0.5568,"dn0":0.1373,"t0":3.94,"t1":3.04}},"rank":6,"y26":{"gulf":{"change":-0.394,"lag":-0.0877,"rest":-0.3063},"nyh":{"change":-0.2575,"lag":-0.0225,"rest":-0.2351}}},"chicago":{"name":"Chicago","bench":"Gulf Coast","n":613,"cum":[0.5136,0.7453,0.8291,0.9595,0.9745,0.9906,1.0621,1.0324,1.0612],"se":[0.0472,0.0577,0.0637,0.0589,0.0696,0.0683,0.0783,0.0794,0.0924],"lag":98732.0,"lag_raw":83157.0,"lag_se":51472.0,"w90":3,"vol":11.3,"alt":{"gulf":{"lag":98732.0,"w1":0.7453,"w4":0.9745,"w8":1.0612,"rank":1},"brent":{"lag":94725.0,"w1":0.77,"w4":0.9952,"w8":1.0638,"rank":1}},"up":[0.6607,0.8683,0.9204,0.9466,1.034,0.9656,1.0404,0.9258,1.0775],"dn":[0.3749,0.6056,0.7113,0.9444,0.91,0.9831,1.0571,1.1045,1.0289],"lag_up":60388.0,"lag_dn":143614.0,"lag_up_se":57864.0,"lag_dn_se":79472.0,"per":{"all":{"up0":0.6607,"dn0":0.3749,"t0":2.55,"t1":1.96},"p1519":{"up0":0.684,"dn0":0.8781,"t0":-0.82,"t1":-1.31},"p2126":{"up0":0.6595,"dn0":0.2808,"t0":2.82,"t1":2.17}},"rank":1,"y26":{"gulf":{"change":-0.4558,"lag":-0.0731,"rest":-0.3827},"nyh":{"change":-0.3193,"lag":-0.0234,"rest":-0.296}}},"cleveland":{"name":"Cleveland","bench":"Gulf Coast","n":613,"cum":[0.5822,0.7446,0.7334,0.846,0.8744,0.9128,0.9157,0.9208,0.9012],"se":[0.047,0.0824,0.0716,0.0539,0.0753,0.0739,0.09,0.101,0.1326],"lag":153822.0,"lag_raw":156890.0,"lag_se":59621.0,"w90":5,"vol":12.3,"alt":{"gulf":{"lag":153822.0,"w1":0.7446,"w4":0.8744,"w8":0.9012,"rank":3},"brent":{"lag":115378.0,"w1":0.787,"w4":0.9219,"w8":0.9532,"rank":2}},"up":[0.7363,0.854,0.6764,0.8097,0.7852,0.7806,0.8156,0.8375,0.9795],"dn":[0.4282,0.6026,0.7464,0.8679,0.9468,1.0218,0.9919,1.0019,0.822],"lag_up":130633.0,"lag_dn":140806.0,"lag_up_se":78885.0,"lag_dn_se":64162.0,"per":{"all":{"up0":0.7363,"dn0":0.4282,"t0":2.17,"t1":1.44},"p1519":{"up0":0.5841,"dn0":0.9656,"t0":-1.39,"t1":-2.13},"p2126":{"up0":0.774,"dn0":0.2911,"t0":2.96,"t1":2.26}},"rank":2,"y26":{"gulf":{"change":-0.3239,"lag":-0.0938,"rest":-0.2301},"nyh":{"change":-0.1874,"lag":-0.0516,"rest":-0.1358}}},"denver":{"name":"Denver","bench":"Gulf Coast","n":613,"cum":[0.3973,0.5641,0.6034,0.7459,0.826,0.8996,1.0079,1.0229,1.0212],"se":[0.054,0.0686,0.0839,0.1029,0.1076,0.106,0.1013,0.0913,0.0983],"lag":196369.0,"lag_raw":191168.0,"lag_se":68242.0,"w90":6,"vol":9.4,"alt":{"gulf":{"lag":196369.0,"w1":0.5641,"w4":0.826,"w8":1.0212,"rank":4},"brent":{"lag":207960.0,"w1":0.6177,"w4":0.7948,"w8":0.9091,"rank":5}},"up":[0.5723,0.7733,0.7399,0.7517,0.7626,0.7737,0.8385,0.8825,0.9228],"dn":[0.2298,0.3402,0.4434,0.7095,0.8696,0.9931,1.1366,1.1364,1.0915],"lag_up":191674.0,"lag_dn":241453.0,"lag_up_se":97306.0,"lag_dn_se":80142.0,"per":{"all":{"up0":0.5723,"dn0":0.2298,"t0":2.87,"t1":2.3},"p1519":{"up0":0.5409,"dn0":0.0788,"t0":2.64,"t1":2.91},"p2126":{"up0":0.5976,"dn0":0.2521,"t0":2.21,"t1":1.68}},"rank":3,"y26":{"gulf":{"change":0.0136,"lag":-0.1169,"rest":0.1305},"nyh":{"change":0.1501,"lag":-0.0505,"rest":0.2006}}},"houston":{"name":"Houston","bench":"Gulf Coast","n":611,"cum":[0.3717,0.5524,0.6439,0.7436,0.783,0.8008,0.8315,0.8323,0.8552],"se":[0.0407,0.0435,0.0442,0.0473,0.0476,0.0521,0.0609,0.0663,0.0716],"lag":258551.0,"lag_raw":258551.0,"lag_se":42006.0,"w90":null,"vol":6.8,"alt":{"gulf":{"lag":258551.0,"w1":0.5524,"w4":0.783,"w8":0.8552,"rank":6},"brent":{"lag":246667.0,"w1":0.6151,"w4":0.768,"w8":0.8748,"rank":6}},"up":[0.6644,0.7783,0.7875,0.7884,0.826,0.7908,0.7942,0.7775,0.7463],"dn":[0.1081,0.3218,0.4953,0.6777,0.7358,0.7763,0.8323,0.8608,0.9192],"lag_up":185136.0,"lag_dn":327254.0,"lag_up_se":45528.0,"lag_dn_se":50925.0,"per":{"all":{"up0":0.6644,"dn0":0.1081,"t0":5.56,"t1":3.91},"p1519":{"up0":0.6672,"dn0":0.1282,"t0":2.59,"t1":2.37},"p2126":{"up0":0.6815,"dn0":0.1179,"t0":4.62,"t1":2.52}},"rank":8,"y26":{"gulf":{"change":-0.4233,"lag":-0.0488,"rest":-0.3745},"nyh":{"change":-0.2869,"lag":0.0072,"rest":-0.294}}},"losangeles":{"name":"Los Angeles","bench":"Los Angeles","n":613,"cum":[0.3872,0.5503,0.6846,0.7955,0.8521,0.9016,0.9155,0.9102,0.9593],"se":[0.0292,0.0299,0.0383,0.0481,0.0496,0.056,0.0577,0.0594,0.0628],"lag":203831.0,"lag_raw":204356.0,"lag_se":39971.0,"w90":5,"vol":10.3,"alt":{"gulf":{"lag":150532.0,"w1":0.6347,"w4":0.8795,"w8":1.0285,"rank":2},"brent":{"lag":130771.0,"w1":0.6885,"w4":0.9172,"w8":1.0057,"rank":3}},"up":[0.5922,0.7145,0.7882,0.8416,0.8271,0.8342,0.8071,0.7721,0.8013],"dn":[0.2233,0.3887,0.5215,0.6517,0.7392,0.8047,0.8559,0.865,0.9261],"lag_up":185572.0,"lag_dn":302389.0,"lag_up_se":43821.0,"lag_dn_se":41009.0,"per":{"all":{"up0":0.5922,"dn0":0.2233,"t0":5.23,"t1":4.29},"p1519":{"up0":0.652,"dn0":0.2242,"t0":3.07,"t1":3.07},"p2126":{"up0":0.5761,"dn0":0.2382,"t0":3.56,"t1":2.47}},"rank":4,"y26":{"gulf":{"change":-0.35,"lag":-0.1504,"rest":-0.1997},"nyh":{"change":-0.2135,"lag":-0.085,"rest":-0.1285}}},"miami":{"name":"Miami","bench":"Gulf Coast","n":611,"cum":[0.331,0.5642,0.6442,0.6739,0.7411,0.7316,0.7615,0.7764,0.8138],"se":[0.0532,0.0605,0.0481,0.0501,0.0491,0.0535,0.061,0.0625,0.0647],"lag":295290.0,"lag_raw":296233.0,"lag_se":42367.0,"w90":null,"vol":8.1,"alt":{"gulf":{"lag":295290.0,"w1":0.5642,"w4":0.7411,"w8":0.8138,"rank":8},"brent":{"lag":263623.0,"w1":0.6397,"w4":0.7473,"w8":0.8892,"rank":7}},"up":[0.5672,0.8236,0.8033,0.7828,0.8493,0.7372,0.7784,0.7504,0.7589],"dn":[0.1142,0.3051,0.47,0.5462,0.622,0.6867,0.7059,0.7656,0.8216],"lag_up":171545.0,"lag_dn":396277.0,"lag_up_se":53415.0,"lag_dn_se":60682.0,"per":{"all":{"up0":0.5672,"dn0":0.1142,"t0":3.19,"t1":4.3},"p1519":{"up0":0.6115,"dn0":0.1217,"t0":1.84,"t1":2.59},"p2126":{"up0":0.591,"dn0":0.103,"t0":2.69,"t1":2.89}},"rank":9,"y26":{"gulf":{"change":-0.4973,"lag":-0.0274,"rest":-0.4698},"nyh":{"change":-0.3608,"lag":0.0003,"rest":-0.3611}}},"newyork":{"name":"New York City","bench":"New York Harbor","n":613,"cum":[0.391,0.6069,0.7015,0.7589,0.8209,0.8245,0.8485,0.9086,0.9252],"se":[0.0442,0.0555,0.0592,0.0599,0.0607,0.0604,0.0643,0.0688,0.0728],"lag":221398.0,"lag_raw":221398.0,"lag_se":50937.0,"w90":7,"vol":6.7,"alt":{"gulf":{"lag":277955.0,"w1":0.5307,"w4":0.7239,"w8":0.8965,"rank":7},"brent":{"lag":263808.0,"w1":0.5783,"w4":0.7121,"w8":0.9298,"rank":8}},"up":[0.6206,0.8317,0.8347,0.8102,0.8504,0.8259,0.8275,0.9073,0.9215],"dn":[0.1454,0.3623,0.5436,0.6597,0.741,0.7516,0.8137,0.8664,0.8685],"lag_up":149810.0,"lag_dn":324796.0,"lag_up_se":52721.0,"lag_dn_se":94170.0,"per":{"all":{"up0":0.6206,"dn0":0.1454,"t0":4.51,"t1":3.74},"p1519":{"up0":0.6885,"dn0":0.1423,"t0":2.5,"t1":2.62},"p2126":{"up0":0.6016,"dn0":0.1874,"t0":3.31,"t1":2.71}},"rank":5,"y26":{"gulf":{"change":-0.3686,"lag":-0.0761,"rest":-0.2925},"nyh":{"change":-0.2321,"lag":-0.0057,"rest":-0.2264}}},"sanfrancisco":{"name":"San Francisco","bench":"Los Angeles","n":613,"cum":[0.3434,0.4865,0.6253,0.7324,0.7866,0.8414,0.8792,0.8879,0.9183],"se":[0.0289,0.0324,0.0408,0.0523,0.0543,0.0605,0.0604,0.0596,0.063],"lag":249905.0,"lag_raw":249905.0,"lag_se":42425.0,"w90":8,"vol":9.7,"alt":{"gulf":{"lag":199622.0,"w1":0.5761,"w4":0.7885,"w8":0.9669,"rank":5},"brent":{"lag":181302.0,"w1":0.6393,"w4":0.8148,"w8":0.9836,"rank":4}},"up":[0.5167,0.6233,0.7284,0.7556,0.7839,0.8284,0.8186,0.7959,0.7932],"dn":[0.205,0.3509,0.4832,0.6295,0.6846,0.7352,0.807,0.8292,0.88],"lag_up":227842.0,"lag_dn":339555.0,"lag_up_se":55051.0,"lag_dn_se":46803.0,"per":{"all":{"up0":0.5167,"dn0":0.205,"t0":3.76,"t1":3.04},"p1519":{"up0":0.3874,"dn0":0.2048,"t0":1.72,"t1":1.46},"p2126":{"up0":0.6016,"dn0":0.2214,"t0":3.8,"t1":2.85}},"rank":7,"y26":{"gulf":{"change":-0.2406,"lag":-0.1489,"rest":-0.0916},"nyh":{"change":-0.1041,"lag":-0.0633,"rest":-0.0408}}},"seattle":{"name":"Seattle","bench":"Los Angeles","n":613,"cum":[0.183,0.326,0.4287,0.5164,0.5759,0.6262,0.6609,0.685,0.7278],"se":[0.0224,0.03,0.0362,0.0445,0.049,0.0519,0.0558,0.0568,0.0582],"lag":427014.0,"lag_raw":427014.0,"lag_se":38666.0,"w90":null,"vol":6.8,"alt":{"gulf":{"lag":319117.0,"w1":0.4146,"w4":0.6835,"w8":0.8485,"rank":10},"brent":{"lag":311989.0,"w1":0.47,"w4":0.7156,"w8":0.8322,"rank":10}},"up":[0.234,0.3965,0.4992,0.5532,0.5896,0.6201,0.6261,0.6554,0.6773],"dn":[0.1428,0.2618,0.3516,0.448,0.5155,0.5741,0.627,0.6477,0.7043],"lag_up":414854.0,"lag_dn":472701.0,"lag_up_se":54297.0,"lag_dn_se":31051.0,"per":{"all":{"up0":0.234,"dn0":0.1428,"t0":1.46,"t1":1.8},"p1519":{"up0":0.1785,"dn0":0.095,"t0":1.23,"t1":0.99},"p2126":{"up0":0.2759,"dn0":0.166,"t0":1.32,"t1":1.71}},"rank":10,"y26":{"gulf":{"change":-0.483,"lag":-0.2038,"rest":-0.2792},"nyh":{"change":-0.3465,"lag":-0.0817,"rest":-0.2648}}}},"city_order":["chicago","cleveland","denver","losangeles","newyork","boston","sanfrancisco","houston","miami","seattle"],"asym":{"chicago":{"p1519":{"up":[0.684,0.7199,0.7766,0.7928,0.8897,0.7782,1.174,1.1247,1.2061],"dn":[0.8781,1.1471,1.2178,1.3629,1.0522,1.2751,1.3238,1.2172,1.2833]},"p2126":{"up":[0.6595,0.8876,0.9463,0.9859,1.0859,1.0099,1.0426,0.9264,1.1235],"dn":[0.2808,0.543,0.6913,0.9658,1.002,1.0558,1.1416,1.2595,1.1535]}}},"y26":{"date":["2025-10-06","2025-10-13","2025-10-20","2025-10-27","2025-11-03","2025-11-10","2025-11-17","2025-11-24","2025-12-01","2025-12-08","2025-12-15","2025-12-22","2025-12-29","2026-01-05","2026-01-12","2026-01-19","2026-01-26","2026-02-02","2026-02-09","2026-02-16","2026-02-23","2026-03-02","2026-03-09","2026-03-16","2026-03-23","2026-03-30","2026-04-06","2026-04-13","2026-04-20","2026-04-27","2026-05-04","2026-05-11","2026-05-18","2026-05-25","2026-06-01","2026-06-08","2026-06-15","2026-06-22","2026-06-29","2026-07-06","2026-07-13","2026-07-20","2026-07-27","2026-08-03","2026-08-10","2026-08-17","2026-08-24","2026-08-31","2026-09-07","2026-09-14","2026-09-21","2026-09-28"],"r_chicago":[3.409,3.243,3.181,3.352,3.247,3.332,3.255,3.331,3.184,3.095,3.078,2.99,3.018,2.942,2.921,2.913,2.973,2.938,3.006,3.014,2.909,3.028,3.555,3.613,4.178,4.25,4.232,4.347,4.245,4.277,4.922,4.833,4.997,4.824,4.659,4.422,4.258,4.079,4.016,3.893,3.982,4.032,4.129,4.275,4.166,4.289,4.348,4.243,4.321,4.42,4.879,4.759],"r_seattle":[4.58,4.553,4.487,4.456,4.376,4.348,4.297,4.291,4.301,4.262,4.18,4.104,4.081,4.027,3.927,3.921,3.929,3.986,4.089,4.277,4.389,4.427,4.688,4.894,5.303,5.409,5.447,5.442,5.449,5.48,5.674,5.767,5.769,5.771,5.75,5.69,5.617,5.448,5.304,5.152,5.167,5.201,5.229,5.259,5.256,5.312,5.37,5.412,5.604,5.653,5.692,5.677],"chi_spread":[1.4286,1.2588,1.275,1.455,1.3528,1.3574,1.2577,1.3748,1.3618,1.2584,1.3004,1.3026,1.2892,1.1335,0.955,0.8708,0.887,0.8064,0.8574,0.8936,1.1417,1.2092,1.154,0.911,1.0448,1.2068,0.954,1.2766,1.2306,0.9612,1.2724,1.291,1.3602,1.275,1.5112,1.355,1.2092,1.1465,1.0496,0.8552,0.9442,0.7662,0.6392,0.858,1.1738,1.0964,0.912,0.679,0.8272,0.791,0.991,0.8138],"sea_spread":[2.1286,2.119,2.1905,2.298,1.9282,1.6438,1.9585,2.0856,2.2635,2.3984,2.424,2.3958,2.2768,2.0738,1.7816,1.7048,1.653,1.5348,1.5908,1.7096,1.9642,2.136,1.824,1.641,1.783,1.8798,1.7553,1.9236,1.9156,1.5368,1.4264,1.6622,1.7752,1.9304,2.1695,2.183,2.2614,2.2778,2.053,1.8843,1.8636,1.7328,1.6072,1.604,2.0364,1.9402,1.875,1.5582,1.7444,1.7117,1.5686,1.3832],"crack":[0.3815,0.3973,0.4213,0.3917,0.3461,0.4436,0.5004,0.4409,0.2895,0.3132,0.287,0.2392,0.2238,0.328,0.4678,0.4471,0.4911,0.4548,0.4857,0.4372,0.0612,0.1198,0.3705,0.4126,0.4809,0.3946,0.3272,0.1036,0.2898,0.7058,0.8012,1.0211,1.0052,0.9155,0.837,0.7111,0.8163,1.0039,1.2132,1.3782,1.2919,1.2914,1.2013,1.2354,0.9003,0.9899,1.1931,1.4276,1.1345,0.9664,0.9321,1.1575]},"shift":{"q4_25":{"chi_gulf":1.3287,"chi_nyh":1.3367,"sea_la":2.1624,"sea_gulf":2.4518,"crack":0.3597},"q3_26":{"chi_gulf":0.8729,"chi_nyh":1.0174,"sea_la":1.7315,"sea_gulf":1.9688,"crack":1.1615},"gulf_low":{"date":"2025-12-22","v":1.6874},"gulf_last":{"date":"2026-09-28","v":3.9452}},"big_moves":{"n26":20,"weeks26":39,"pre26":0.202,"y26":0.513},"chg26":{"crude":0.7325,"refining":0.8018,"gap_chicago":-0.4558,"pump_chicago":1.0785,"pump_chicago_q4":3.2088,"pump_chicago_q3":4.2874,"crude_to_pump_chicago":0.346},"brent":{"jan":63.0,"peak":125.0,"peak_date":"2026-04-13"},"gulf_nyh":{"sep26":0.302,"hist_mean":-0.063,"hist_max":0.141},"map":{"w":560.0,"h":350.1,"outline":"M32.5 6.8L43.0 13.2L47.6 10.4L51.7 4.0L293.7 37.2L293.6 32.2L298.6 40.8L312.9 42.1L327.6 48.8L343.8 48.5L322.0 66.3L334.0 67.7L350.3 62.7L358.8 55.4L365.4 66.8L378.0 63.6L387.4 60.9L393.3 63.8L390.9 72.6L382.5 71.1L373.6 74.7L365.2 85.6L363.0 93.8L367.4 100.2L364.8 113.9L366.5 123.2L369.2 131.1L376.1 130.4L379.5 124.7L381.5 115.0L378.5 104.5L379.1 92.3L384.1 85.1L391.0 73.8L396.2 75.6L404.7 82.6L406.9 91.7L401.9 97.8L414.1 95.5L417.9 107.8L417.7 113.3L412.4 118.1L410.5 126.5L417.8 128.2L427.6 126.8L438.4 118.9L444.7 114.5L451.7 103.7L449.4 99.3L459.2 96.1L468.8 95.2L475.7 90.0L474.1 82.8L483.0 69.9L485.5 68.0L514.8 60.7L517.6 55.9L522.6 44.8L522.3 35.2L526.6 23.6L534.9 22.6L540.3 24.8L544.9 39.0L556.0 50.3L547.1 60.0L534.7 72.0L531.7 75.7L528.8 83.4L531.3 89.0L528.8 94.6L535.3 99.8L540.4 99.7L534.3 103.5L527.9 106.6L514.1 113.0L507.3 118.8L506.6 124.5L506.1 126.7L507.1 135.5L501.6 148.1L501.5 154.7L498.4 167.2L496.0 174.6L496.3 177.3L506.2 197.9L497.1 207.4L484.3 221.7L471.8 232.9L464.2 241.1L454.6 252.2L452.3 270.2L455.6 280.5L466.8 299.0L477.4 318.8L477.8 332.2L476.1 340.5L467.8 342.5L458.4 333.9L452.1 324.2L442.3 310.8L441.8 298.8L428.7 284.4L420.4 283.4L408.9 289.7L395.2 281.5L378.2 285.1L362.1 285.6L366.2 302.8L351.5 302.4L335.0 297.9L311.6 296.0L300.7 300.9L287.3 310.3L276.7 316.3L269.4 328.2L269.8 344.1L272.2 346.1L252.3 340.4L244.4 324.9L235.5 312.5L229.0 299.5L223.5 293.6L212.0 292.5L203.1 302.6L193.0 297.1L185.9 285.0L167.5 262.3L148.5 259.6L147.7 265.6L115.4 260.9L76.7 238.1L78.2 235.3L51.3 232.2L51.4 225.7L45.6 214.0L41.1 209.0L34.0 205.6L20.5 196.6L22.2 188.0L17.0 180.3L14.2 166.3L11.3 157.0L12.6 149.0L8.3 144.9L5.0 130.6L6.8 119.1L4.0 109.3L9.1 102.9L12.1 89.7L12.1 77.9L19.7 68.2L26.1 51.9L30.8 36.6L32.1 27.2L31.7 13.2Z","pts":{"seattle":[50.3,22.8],"sanfrancisco":[13.3,149.6],"losangeles":[43.9,209.4],"denver":[194.7,156.8],"houston":[293.4,295.5],"chicago":[368.7,128.7],"cleveland":[427.7,126.8],"miami":[477.4,332.8],"newyork":[505.0,122.6],"boston":[528.0,93.9]},"ref":{"cherry":[51.5,5.6],"whiting":[370.3,131.4]}}};
+const NS = 'http://www.w3.org/2000/svg';
+const C = {chicago:'#d95926', seattle:'#199e70', other:'#3987e5', ref:'#CFC8BA', mute:'#5E665F', grid:'#282D29', axis:'#363C37', bg:'#161917'};
+const CT = D.cities, ORDER = D.city_order;
+const NAME = k => CT[k].name === 'New York City' ? 'New York' : CT[k].name;
+const col = k => C[k] || C.mute;
+const MAIN = k => k === 'chicago' || k === 'seattle';
+const pct = v => Math.round(v * 100) + '%';
+const usd = v => '$' + v.toFixed(2);
+const cts = v => (v < 0 ? '−' : '') + Math.round(Math.abs(v) * 100) + '¢';
+const scts = v => (v < 0 ? '−' : '+') + Math.round(Math.abs(v) * 100) + '¢';
+const kd = v => '$' + Math.round(v / 1000).toLocaleString('en-US') + 'K';
+const $ = id => document.getElementById(id);
+function svg(tag, a, parent) { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, a) { const t = svg('text', Object.assign({x: x, y: y}, a || {}), parent); t.textContent = s; return t; }
+function legend(host, items) {
+  host.textContent = '';
+  items.forEach(it => { const s = document.createElement('span'); const i = document.createElement('i'); if (it.dot) i.className = 'dot'; if (it.dia) i.className = 'dia'; i.style.color = it.color; s.appendChild(i); s.appendChild(document.createTextNode(it.name)); host.appendChild(s); });
+}
+function table(host, head, rows, em, cls) {
+  host.textContent = '';
+  const t = document.createElement('table'); if (cls) t.className = cls; const tr = document.createElement('tr');
+  head.forEach(h => { const th = document.createElement('th'); th.textContent = h; tr.appendChild(th); });
+  const th0 = document.createElement('thead'); th0.appendChild(tr); t.appendChild(th0);
+  const tb = document.createElement('tbody');
+  rows.forEach((r, ri) => { const row = document.createElement('tr'); if (em && em(ri)) row.className = 'em'; r.forEach((c, ci) => { const td = document.createElement('td'); td.textContent = c; if (ci === 0) td.className = 'hl'; row.appendChild(td); }); tb.appendChild(row); });
+  t.appendChild(tb); host.appendChild(t);
+}
+function tipRows(tip, head, rows) {
+  tip.textContent = '';
+  const b = document.createElement('b'); b.textContent = head; tip.appendChild(b);
+  rows.forEach(q => { const d = document.createElement('div'); if (q[2]) { const ic = document.createElement('i'); ic.style.color = q[2]; d.appendChild(ic); } const em = document.createElement('em'); em.textContent = q[1]; d.appendChild(document.createTextNode(q[0])); d.appendChild(em); tip.appendChild(d); });
+}
+
+function lineChart(host, cfg) {
+  host.textContent = '';
+  const W = Math.max(280, host.clientWidth), H = cfg.height || 320;
+  const narrow = W < (cfg.narrowAt || 560);
+  const m = {l: 46, r: narrow ? 14 : (cfg.right == null ? 118 : cfg.right), t: cfg.title ? 34 : 14, b: 40};
+  const xt = narrow && cfg.xTicks.length > 4 ? cfg.xTicks.filter((v, k) => k % 2 === 0) : cfg.xTicks;
+  const pw = W - m.l - m.r, ph = H - m.t - m.b, n = cfg.x.length, pad = cfg.padL || 0;
+  const X = i => m.l + pad + (n === 1 ? (pw - pad) / 2 : (pw - pad) * i / (n - 1));
+  const Y = v => m.t + ph * (1 - (v - cfg.yMin) / (cfg.yMax - cfg.yMin));
+  const s = svg('svg', {viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': cfg.aria || ''}, host);
+  if (cfg.title) txt(s, m.l, 16, cfg.title, {class: 'ttl'});
+  cfg.yTicks.forEach(v => {
+    svg('line', {x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), stroke: v === cfg.yBase ? C.axis : C.grid, 'stroke-width': 1}, s);
+    txt(s, m.l - 9, Y(v) + 4, cfg.yFmt(v), {'text-anchor': 'end'});
+  });
+  xt.forEach(i => txt(s, X(i), m.t + ph + 20, cfg.xLab(i), {'text-anchor': i === 0 && !pad ? 'start' : (i === n - 1 ? 'end' : 'middle')}));
+  (cfg.refs || []).forEach(r => {
+    svg('line', {x1: m.l, x2: m.l + pw, y1: Y(r.y), y2: Y(r.y), stroke: C.axis, 'stroke-width': 1}, s);
+    if (r.label && !narrow) txt(s, m.l + 6, Y(r.y) - 6, r.label);
+  });
+  const loud = cfg.series.filter(se => !se.quiet), quiet = cfg.series.filter(se => se.quiet);
+  quiet.forEach(se => {
+    let d = ''; se.v.forEach((v, i) => { d += (i ? 'L' : 'M') + X(i) + ' ' + Y(v); });
+    svg('path', {d: d, fill: 'none', stroke: se.color, 'stroke-width': 1.25, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, s);
+  });
+  loud.forEach(se => {
+    if (se.lo) {
+      let d = '';
+      se.lo.forEach((v, i) => { d += (i ? 'L' : 'M') + X(i) + ' ' + Y(Math.max(cfg.yMin, v)); });
+      for (let i = se.hi.length - 1; i >= 0; i--) d += 'L' + X(i) + ' ' + Y(Math.min(cfg.yMax, se.hi[i]));
+      svg('path', {d: d + 'Z', fill: se.color, opacity: .1}, s);
+    }
+  });
+  loud.forEach(se => {
+    let d = '', pen = false;
+    se.v.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? 'L' : 'M') + X(i) + ' ' + Y(v); pen = true; });
+    svg('path', {d: d, fill: 'none', stroke: se.color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, s);
+  });
+  const ends = loud.filter(se => se.end && !narrow).map(se => { let i = se.v.length - 1; while (i > 0 && se.v[i] == null) i--; return {se: se, i: i, y: Y(se.v[i])}; }).sort((a, b) => a.y - b.y);
+  for (let k = 1; k < ends.length; k++) if (ends[k].y - ends[k - 1].y < 17) ends[k].y = ends[k - 1].y + 17;
+  ends.forEach(e => {
+    svg('circle', {cx: X(e.i), cy: Y(e.se.v[e.i]), r: 4, fill: e.se.color, stroke: C.bg, 'stroke-width': 2}, s);
+    txt(s, X(e.i) + 10, e.y + 4, e.se.end, {class: 'end'});
+  });
+  (cfg.points || []).forEach(p => {
+    svg('circle', {cx: X(p.i), cy: Y(p.v), r: 4, fill: p.color, stroke: C.bg, 'stroke-width': 2}, s);
+    txt(s, X(p.i) - 9, Y(p.v) + 4, p.label, {class: 'pt', 'text-anchor': 'end'});
+  });
+  const cross = svg('line', {y1: m.t, y2: m.t + ph, stroke: '#6D695F', 'stroke-width': 1, opacity: 0}, s);
+  const dots = loud.map(se => svg('circle', {r: 4, fill: se.color, stroke: C.bg, 'stroke-width': 2, opacity: 0}, s));
+  const tip = document.createElement('div'); tip.className = 'tip'; host.appendChild(tip);
+  const hit = svg('rect', {x: m.l, y: m.t, width: pw, height: ph, fill: 'transparent', tabindex: 0}, s);
+  let cur = -1;
+  function show(i) {
+    cur = i;
+    cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('opacity', 1);
+    const rows = [];
+    loud.forEach((se, k) => {
+      const v = se.v[i];
+      if (v == null) { dots[k].setAttribute('opacity', 0); return; }
+      dots[k].setAttribute('cx', X(i)); dots[k].setAttribute('cy', Y(v)); dots[k].setAttribute('opacity', 1);
+      rows.push([se.name, cfg.yFmt(v), se.color]);
+    });
+    if (quiet.length) { const vs = quiet.map(se => se.v[i]); rows.push([cfg.quietName, cfg.yFmt(Math.min.apply(null, vs)) + ' to ' + cfg.yFmt(Math.max.apply(null, vs)), quiet[0].color]); }
+    tipRows(tip, cfg.tipHead(i), rows);
+    const sx = host.clientWidth / W, tw = tip.offsetWidth;
+    let left = X(i) * sx + 14; if (left + tw > host.clientWidth) left = X(i) * sx - tw - 14;
+    tip.style.left = Math.max(0, left) + 'px'; tip.style.top = (m.t + 6) + 'px'; tip.style.opacity = 1;
+  }
+  function hide() { cur = -1; cross.setAttribute('opacity', 0); dots.forEach(d => d.setAttribute('opacity', 0)); tip.style.opacity = 0; }
+  hit.addEventListener('pointermove', ev => { const r = s.getBoundingClientRect(); const x = (ev.clientX - r.left) * (W / r.width); show(Math.max(0, Math.min(n - 1, Math.round((x - m.l - pad) / (pw - pad) * (n - 1))))); });
+  hit.addEventListener('pointerleave', hide);
+  hit.addEventListener('focus', () => show(cur < 0 ? n - 1 : cur));
+  hit.addEventListener('blur', hide);
+  hit.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight') { show(Math.min(n - 1, cur + 1)); ev.preventDefault(); } if (ev.key === 'ArrowLeft') { show(Math.max(0, cur - 1)); ev.preventDefault(); } });
+}
+
+/* horizontal bars from a zero line; rows: {label, v, color, strong, valLab, head, tip:[[k,v]]} */
+function hbars(host, rows, o) {
+  host.textContent = '';
+  const W = Math.max(260, host.clientWidth), lab = o.lab || 104, rh = o.rh || 28, bh = o.bh || 18, valW = o.valW || 62;
+  const lo = Math.min(0, Math.min.apply(null, rows.map(r => r.v))), hi = Math.max(0, Math.max.apply(null, rows.map(r => r.v)));
+  const x0 = lab + (lo < 0 ? valW : 0), x1 = W - valW, H = rows.length * rh + 8;
+  const X = v => x0 + (x1 - x0) * (v - lo) / ((hi - lo) || 1);
+  const s = svg('svg', {viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': o.aria || ''}, host);
+  svg('line', {x1: X(0), x2: X(0), y1: 0, y2: H - 6, stroke: C.axis, 'stroke-width': 1}, s);
+  const tip = document.createElement('div'); tip.className = 'tip'; host.appendChild(tip);
+  rows.forEach((r, i) => {
+    const y = i * rh + (rh - bh) / 2 + 2, a = X(0), b = X(r.v), w = Math.max(3, Math.abs(b - a)), q = Math.min(4, w);
+    txt(s, lab - 12, y + bh / 2 + 4.5, r.label, {'text-anchor': 'end', class: r.strong ? 'end' : 'row'});
+    const d = r.v >= 0
+      ? 'M' + a + ' ' + y + 'H' + (a + w - q) + 'Q' + (a + w) + ' ' + y + ' ' + (a + w) + ' ' + (y + q) + 'V' + (y + bh - q) + 'Q' + (a + w) + ' ' + (y + bh) + ' ' + (a + w - q) + ' ' + (y + bh) + 'H' + a + 'Z'
+      : 'M' + a + ' ' + y + 'H' + (a - w + q) + 'Q' + (a - w) + ' ' + y + ' ' + (a - w) + ' ' + (y + q) + 'V' + (y + bh - q) + 'Q' + (a - w) + ' ' + (y + bh) + ' ' + (a - w + q) + ' ' + (y + bh) + 'H' + a + 'Z';
+    const bar = svg('path', {d: d, fill: r.color}, s);
+    if (r.v >= 0) txt(s, a + w + 9, y + bh / 2 + 4.5, r.valLab, {class: r.strong ? 'end' : 'row'});
+    else txt(s, a - w - 9, y + bh / 2 + 4.5, r.valLab, {class: r.strong ? 'end' : 'row', 'text-anchor': 'end'});
+    const hit = svg('rect', {x: 0, y: i * rh + 2, width: W, height: rh, fill: 'transparent', tabindex: 0}, s);
+    const on = () => {
+      bar.setAttribute('opacity', .8); tipRows(tip, r.head, r.tip);
+      tip.style.left = Math.max(0, Math.min(host.clientWidth - tip.offsetWidth, lab * (host.clientWidth / W))) + 'px';
+      tip.style.top = ((i + 1) * rh + 2) + 'px'; tip.style.opacity = 1;
+    };
+    const off = () => { bar.setAttribute('opacity', 1); tip.style.opacity = 0; };
+    hit.addEventListener('pointerenter', on); hit.addEventListener('pointerleave', off); hit.addEventListener('focus', on); hit.addEventListener('blur', off);
+  });
+}
+
+const WK = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const wkLab = i => i === 0 ? 'First survey' : i + (i === 1 ? ' week' : ' weeks');
+const wkHead = i => i === 0 ? 'First weekly survey after the move' : i + (i === 1 ? ' week later' : ' weeks later');
+const capArr = a => { let p = 0; return a.map(c => (p = Math.min(1, Math.max(c, p)))); };
+const lagOf = a => capArr(a).reduce((s, c) => s + 1 - c, 0) * 1e5;
+const SLOW = ORDER.slice().reverse();
+
+function fig0() {
+  hbars($('c0'), SLOW.map(k => ({
+    label: NAME(k), v: CT[k].lag, color: col(k), strong: MAIN(k), valLab: kd(CT[k].lag),
+    head: CT[k].name + ', 10¢ wholesale move', tip: [['Rise: street margin given up', kd(CT[k].lag_up)], ['Fall: street margin kept', kd(CT[k].lag_dn)], ['Benchmark', CT[k].bench]]
+  })), {rh: 27, bh: 17, lab: 108, aria: 'Street margin in play after a 10 cent wholesale move, ten cities, Seattle highest and Chicago lowest'});
+}
+
+function fig1() {
+  legend($('lg1'), [{name: 'Chicago', color: C.chicago}, {name: 'Seattle', color: C.seattle}, {name: 'Eight other cities', color: C.mute}]);
+  const band = k => ({lo: CT[k].cum.map((c, i) => c - 1.96 * CT[k].se[i]), hi: CT[k].cum.map((c, i) => c + 1.96 * CT[k].se[i])});
+  const ser = ORDER.filter(k => !MAIN(k)).map(k => ({name: NAME(k), color: C.mute, v: CT[k].cum, quiet: true}));
+  ['chicago', 'seattle'].forEach(k => ser.push(Object.assign({name: NAME(k), color: C[k], v: CT[k].cum, end: NAME(k) + ' ' + pct(CT[k].cum[8])}, band(k))));
+  lineChart($('c1'), {
+    height: 350, x: WK, xTicks: [0, 2, 4, 6, 8], xLab: wkLab, yMin: 0, yMax: 1.3, yTicks: [0, .25, .5, .75, 1, 1.25], yBase: 0, yFmt: pct,
+    refs: [{y: 1, label: 'Fully passed on'}], tipHead: wkHead, quietName: 'Other eight', series: ser,
+    aria: 'Line chart of pass-through by week for ten cities, Chicago highest and Seattle lowest'
+  });
+  table($('tb1'), ['City', 'Benchmark', 'First survey', '1 wk', '2 wk', '4 wk', '8 wk', 'Weeks to 90%', 'In play, 10¢ move'],
+    ORDER.map(k => [CT[k].name, CT[k].bench, pct(CT[k].cum[0]), pct(CT[k].cum[1]), pct(CT[k].cum[2]), pct(CT[k].cum[4]), pct(CT[k].cum[8]), CT[k].w90 == null ? 'More than 8' : String(CT[k].w90), kd(CT[k].lag)]),
+    ri => MAIN(ORDER[ri]), 'l2');
+  table($('tbB'), ['City', 'Own regional marker', 'Gulf Coast gasoline', 'Brent crude'],
+    ORDER.map(k => [CT[k].name, kd(CT[k].lag), kd(CT[k].alt.gulf.lag), kd(CT[k].alt.brent.lag)]), ri => MAIN(ORDER[ri]));
+}
+
+function fig2() {
+  legend($('lg2'), [{name: 'After a wholesale rise', color: C.other, dot: true}, {name: 'After a wholesale fall', color: C.ref, dot: true}]);
+  const keys = ORDER.slice().sort((a, b) => (CT[b].per.all.up0 - CT[b].per.all.dn0) - (CT[a].per.all.up0 - CT[a].per.all.dn0));
+  const host = $('c2'); host.textContent = '';
+  const W = Math.max(260, host.clientWidth), lab = 108, rh = 28, top = 6, H = keys.length * rh + top + 30, x0 = lab + 8, x1 = W - 44;
+  const X = v => x0 + (x1 - x0) * v / .8;
+  const s = svg('svg', {viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': 'Share of a wholesale rise and of a wholesale fall at the pump by the first weekly survey, ten cities'}, host);
+  [0, .2, .4, .6, .8].forEach(v => { svg('line', {x1: X(v), x2: X(v), y1: top, y2: top + keys.length * rh, stroke: v === 0 ? C.axis : C.grid, 'stroke-width': 1}, s); txt(s, X(v), H - 8, pct(v), {'text-anchor': 'middle'}); });
+  const tip = document.createElement('div'); tip.className = 'tip'; host.appendChild(tip);
+  keys.forEach((k, i) => {
+    const a = CT[k].per.all, y = top + i * rh + rh / 2, show = MAIN(k) || i === 0;
+    txt(s, lab - 12, y + 4.5, NAME(k), {'text-anchor': 'end', class: MAIN(k) ? 'end' : 'row'});
+    svg('line', {x1: X(a.dn0), x2: X(a.up0), y1: y, y2: y, stroke: C.axis, 'stroke-width': 2}, s);
+    const g = svg('g', {}, s);
+    svg('circle', {cx: X(a.dn0), cy: y, r: 5, fill: C.ref, stroke: C.bg, 'stroke-width': 2}, g);
+    svg('circle', {cx: X(a.up0), cy: y, r: 5, fill: C.other, stroke: C.bg, 'stroke-width': 2}, g);
+    if (show) { txt(s, X(a.up0) + 11, y + 4.5, pct(a.up0), {class: 'pt'}); if (X(a.dn0) - x0 > 34) txt(s, X(a.dn0) - 11, y + 4.5, pct(a.dn0), {class: 'pt', 'text-anchor': 'end'}); }
+    const hit = svg('rect', {x: 0, y: top + i * rh, width: W, height: rh, fill: 'transparent', tabindex: 0}, s);
+    const on = () => {
+      g.setAttribute('opacity', .8); tipRows(tip, CT[k].name + ', first weekly survey', [['After a rise', pct(a.up0), C.other], ['After a fall', pct(a.dn0), C.ref], ['Difference, t value', a.t0.toFixed(1).replace('-', '−')]]);
+      tip.style.left = Math.max(0, Math.min(host.clientWidth - tip.offsetWidth, lab * (host.clientWidth / W))) + 'px'; tip.style.top = (top + (i + 1) * rh) + 'px'; tip.style.opacity = 1;
+    };
+    const off = () => { g.setAttribute('opacity', 1); tip.style.opacity = 0; };
+    hit.addEventListener('pointerenter', on); hit.addEventListener('pointerleave', off); hit.addEventListener('focus', on); hit.addEventListener('blur', off);
+  });
+  const per = [['all', '2015 to 2026'], ['p1519', '2015 to 2019'], ['p2126', '2021 to 2026']];
+  table($('tb2'), ['City'].concat(per.map(p => p[1])), keys.map(k => [CT[k].name].concat(per.map(p => { const a = CT[k].per[p[0]]; return pct(a.up0) + ' / ' + pct(a.dn0) + '  (t ' + a.t0.toFixed(1).replace('-', '−') + ')'; }))), ri => MAIN(keys[ri]));
+
+  legend($('lg2b'), [{name: 'After a wholesale rise', color: C.chicago}, {name: 'After a wholesale fall', color: C.ref}]);
+  const h2 = $('c2b'); h2.textContent = '';
+  [['p1519', '2015 to 2019'], ['p2126', '2021 to 2026']].forEach(pp => {
+    const d = document.createElement('div'); d.className = 'chart'; h2.appendChild(d);
+    const a = D.asym.chicago[pp[0]], up = capArr(a.up), dn = capArr(a.dn);
+    lineChart(d, {
+      height: 260, right: 16, padL: 40, narrowAt: 200, title: pp[1], x: WK, xTicks: [0, 4, 8], xLab: i => i === 0 ? '1st' : i + ' weeks', yMin: 0, yMax: 1.1, yTicks: [0, .25, .5, .75, 1], yBase: 0, yFmt: pct,
+      refs: [{y: 1}], tipHead: wkHead, aria: 'Chicago ' + pp[1] + ': pass-through after rises and after falls',
+      series: [{name: 'After a rise', color: C.chicago, v: up}, {name: 'After a fall', color: C.ref, v: dn}],
+      points: [{i: 0, v: dn[0], color: C.ref, label: pct(dn[0])}]
+    });
+  });
+}
+
+function fig3() {
+  const g = D.chg26;
+  $('c3aT').textContent = 'Chicago pump price: up ' + usd(g.pump_chicago) + ' a gallon, layer by layer';
+  hbars($('c3a'), [
+    {label: 'Crude oil', v: g.crude, color: C.ref, valLab: scts(g.crude), head: 'Brent crude', tip: [['Change, cents a gallon', scts(g.crude)]]},
+    {label: 'Refining', v: g.refining, color: C.ref, valLab: scts(g.refining), head: 'Gulf Coast gasoline over Brent crude', tip: [['Change', scts(g.refining)]]},
+    {label: 'Pump over wholesale', v: g.gap_chicago, color: C.chicago, strong: true, valLab: scts(g.gap_chicago), head: 'Chicago pump over Gulf Coast wholesale', tip: [['Change', scts(g.gap_chicago)]]}
+  ], {rh: 34, bh: 20, lab: $('c3a').clientWidth < 480 ? 132 : 150, valW: $('c3a').clientWidth < 480 ? 44 : 56, aria: 'Change in the Chicago pump price by layer: crude oil, refining, pump over wholesale'});
+
+  const keys = ORDER.slice().sort((a, b) => CT[a].y26.gulf.change - CT[b].y26.gulf.change);
+  hbars($('c3b'), keys.map(k => { const y = CT[k].y26.gulf, nar = -y.change; return {
+    label: NAME(k), v: Math.max(0, nar), color: col(k), strong: MAIN(k), valLab: nar >= 0 ? cts(nar) : 'wider by ' + cts(-nar),
+    head: CT[k].name + ', pump over Gulf Coast wholesale', tip: [['Change in the gap', scts(y.change)], ['Of which timing', scts(y.lag)], ['Rest', scts(y.rest)]]
+  }; }), {rh: 27, bh: 17, lab: 108, valW: 92, aria: 'How much the gap between pump and wholesale narrowed in each of ten cities'});
+  table($('tb3'), ['City', 'Change against Gulf Coast', 'Of which timing', 'Rest', 'Change against New York Harbor'],
+    keys.map(k => { const y = CT[k].y26; return [CT[k].name, scts(y.gulf.change), scts(y.gulf.lag), scts(y.gulf.rest), scts(y.nyh.change)]; }), ri => MAIN(keys[ri]));
+
+  const y = D.y26, n = y.date.length;
+  const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dl = i => { const p = y.date[i].split('-'); return mon[+p[1] - 1] + ' ' + (+p[2]) + ', ' + p[0]; };
+  const ticks = []; let last = '';
+  y.date.forEach((d, i) => { const k = d.slice(0, 7); if (k !== last) { last = k; if ((+d.slice(5, 7)) % 2 === 0) ticks.push(i); } });
+  const ser = [
+    {name: 'Seattle pump over Los Angeles wholesale', color: C.seattle, v: y.sea_spread, end: 'Seattle ' + usd(y.sea_spread[n - 1])},
+    {name: 'Chicago pump over Gulf Coast wholesale', color: C.chicago, v: y.chi_spread, end: 'Chicago ' + usd(y.chi_spread[n - 1])},
+    {name: 'Gulf Coast gasoline over Brent crude', color: C.ref, v: y.crack, end: 'Over crude ' + usd(y.crack[n - 1])}
+  ];
+  legend($('lg3'), ser);
+  lineChart($('c3'), {
+    height: 340, right: 132, x: y.date, xTicks: ticks, xLab: i => mon[+y.date[i].slice(5, 7) - 1] + (y.date[i].slice(5, 7) === '10' || y.date[i].slice(5, 7) === '02' ? ' ' + y.date[i].slice(0, 4) : ''),
+    yMin: 0, yMax: 2.75, yTicks: [0, .5, 1, 1.5, 2, 2.5], yBase: 0, yFmt: usd, tipHead: dl, series: ser,
+    aria: 'Weekly gaps: Seattle pump over wholesale, Chicago pump over wholesale, gasoline over crude'
+  });
+  const idx = []; for (let i = 0; i < n; i += 4) idx.push(i); if (idx[idx.length - 1] !== n - 1) idx.push(n - 1);
+  table($('tb3w'), ['Week of', 'Chicago pump', 'Chicago gap', 'Seattle pump', 'Seattle gap', 'Gasoline over crude'],
+    idx.map(i => [dl(i), usd(y.r_chicago[i]), usd(y.chi_spread[i]), usd(y.r_seattle[i]), usd(y.sea_spread[i]), usd(y.crack[i])]));
+}
+
+let simM = 'chicago';
+function sim() {
+  const mv = +$('simR').value, e = CT[simM], cum = capArr(mv >= 0 ? e.up : e.dn), cc = C[simM] || C.other;
+  $('simV').textContent = (mv > 0 ? '+' : mv < 0 ? '−' : '') + Math.abs(mv) + '¢ a gallon';
+  $('simT').textContent = e.name + ': a ' + Math.abs(mv) + '¢ wholesale ' + (mv >= 0 ? 'rise' : 'fall');
+  const pump = cum.map(c => c * mv), tot = pump.reduce((s, p) => s + (mv - p), 0);
+  const host = $('c5'); host.textContent = '';
+  const W = Math.max(280, host.clientWidth), H = 300, m = {l: 46, r: 16, t: 14, b: 40}, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const lim = Math.max(10, Math.ceil(Math.abs(mv) * 1.2 / 5) * 5), yMin = mv >= 0 ? 0 : -lim, yMax = mv >= 0 ? lim : 0;
+  const Y = v => m.t + ph * (1 - (v - yMin) / (yMax - yMin)), band = pw / 9, bw = Math.min(24, band * .6);
+  const s = svg('svg', {viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': 'Pump price response by week'}, host);
+  const step = lim <= 15 ? 5 : 10;
+  for (let v = yMin; v <= yMax + .001; v += step) { svg('line', {x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), stroke: v === 0 ? C.axis : C.grid, 'stroke-width': 1}, s); txt(s, m.l - 9, Y(v) + 4, (v < 0 ? '−' : '') + Math.abs(v) + '¢', {'text-anchor': 'end'}); }
+  const tip = document.createElement('div'); tip.className = 'tip'; host.appendChild(tip);
+  pump.forEach((p, i) => {
+    const cx = m.l + band * (i + .5), y0 = Y(0), y1 = Y(p), top = Math.min(y0, y1), h = Math.max(1, Math.abs(y1 - y0)), r = Math.min(4, h);
+    const d = mv >= 0
+      ? 'M' + (cx - bw / 2) + ' ' + y0 + 'V' + (top + r) + 'Q' + (cx - bw / 2) + ' ' + top + ' ' + (cx - bw / 2 + r) + ' ' + top + 'H' + (cx + bw / 2 - r) + 'Q' + (cx + bw / 2) + ' ' + top + ' ' + (cx + bw / 2) + ' ' + (top + r) + 'V' + y0 + 'Z'
+      : 'M' + (cx - bw / 2) + ' ' + y0 + 'V' + (top + h - r) + 'Q' + (cx - bw / 2) + ' ' + (top + h) + ' ' + (cx - bw / 2 + r) + ' ' + (top + h) + 'H' + (cx + bw / 2 - r) + 'Q' + (cx + bw / 2) + ' ' + (top + h) + ' ' + (cx + bw / 2) + ' ' + (top + h - r) + 'V' + y0 + 'Z';
+    const bar = svg('path', {d: d, fill: cc}, s);
+    txt(s, cx, m.t + ph + 20, i === 0 ? '1st' : i + 'w', {'text-anchor': 'middle'});
+    const hitb = svg('rect', {x: cx - band / 2, y: m.t, width: band, height: ph, fill: 'transparent', tabindex: 0}, s);
+    const on = () => {
+      bar.setAttribute('opacity', .8);
+      tipRows(tip, wkHead(i), [['Pump has moved', p], ['Still to come', mv - p]].map(rw => [rw[0], (rw[1] < 0 ? '−' : '') + Math.abs(rw[1]).toFixed(1) + '¢']));
+      let left = cx * (host.clientWidth / W) + 14; if (left + tip.offsetWidth > host.clientWidth) left = cx * (host.clientWidth / W) - tip.offsetWidth - 14;
+      tip.style.left = Math.max(0, left) + 'px'; tip.style.top = (m.t + 6) + 'px'; tip.style.opacity = 1;
+    };
+    const off = () => { bar.setAttribute('opacity', 1); tip.style.opacity = 0; };
+    hitb.addEventListener('pointerenter', on); hitb.addEventListener('pointerleave', off); hitb.addEventListener('focus', on); hitb.addEventListener('blur', off);
+  });
+  svg('line', {x1: m.l, x2: m.l + pw, y1: Y(mv), y2: Y(mv), stroke: C.ref, 'stroke-width': 2}, s);
+  if (mv !== 0) txt(s, m.l + pw, Y(mv) + (mv >= 0 ? -8 : 18), 'Wholesale move', {'text-anchor': 'end', class: 'pt'});
+  txt(s, m.l + pw / 2, H - 4, 'Weekly surveys after the move', {'text-anchor': 'middle'});
+  const dollars = Math.abs(tot) / 100 * 1e6;
+  if (mv === 0) { $('simK').textContent = 'No move'; $('simO').textContent = '$0'; $('simD').textContent = 'Drag the slider to move the wholesale price.'; return; }
+  $('simK').textContent = mv > 0 ? 'Street margin given up while the pump catches up' : 'Street margin kept while the pump comes down';
+  $('simO').textContent = kd(dollars);
+  $('simD').textContent = 'per million gallons sold each week, added up over the nine surveys, against passing the move on at once. By the last survey the pump has taken ' + (cum[8] >= .995 ? 'all' : pct(cum[8])) + ' of the move.';
+}
+
+function text() {
+  const chi = CT.chicago, sea = CT.seattle, hou = CT.houston, cle = CT.cleveland, bos = CT.boston, g = D.chg26, sh = D.shift, bm = D.big_moves;
+  const nGap = ORDER.filter(k => CT[k].per.all.t0 >= 2).length;
+  const nar = ORDER.map(k => -CT[k].y26.gulf.change).filter(v => v > 0.05).sort((a, b) => a - b);
+  const fallNow = lagOf(D.asym.chicago.p2126.dn), fallThen = lagOf(D.asym.chicago.p1519.dn);
+  $('h1').textContent = 'A 10¢ wholesale move puts ' + kd(sea.lag) + ' of street margin in play in Seattle and ' + kd(chi.lag) + ' in Chicago.';
+  $('lede').textContent = 'That is per million gallons sold a week, while the pump catches up. They are the slowest and the fastest of the ten cities in the U.S. government’s weekly price survey. In 2026 wholesale gasoline has moved 10¢ or more in ' + bm.n26 + ' of ' + bm.weeks26 + ' weeks.';
+  $('t1').textContent = chi.w90 + ' weeks';
+  $('t1d').textContent = 'for Chicago pumps to pass on 90% of a wholesale move, the fastest of ten cities. Seattle, the slowest, is at ' + pct(sea.cum[8]) + ' after eight.';
+  $('t2').textContent = nGap + ' of 10';
+  $('t2d').textContent = 'cities pass a wholesale rise on faster than a fall. In Chicago that only began in 2021.';
+  $('t3').textContent = cts(g.gap_chicago);
+  $('t3d').textContent = 'a gallon off the gap between pump and wholesale in Chicago since late 2025, while gasoline over crude gained ' + cts(g.refining) + '. Only ' + cts(-chi.y26.gulf.lag) + ' of it is timing.';
+  $('speedText').textContent = 'In Chicago ' + pct(chi.cum[0]) + ' of a move is there at the first survey, ' + pct(chi.cum[1]) + ' a week later and ' + pct(chi.cum[4]) + ' after four weeks. In Seattle the same figures are ' + pct(sea.cum[0]) + ', ' + pct(sea.cum[1]) + ' and ' + pct(sea.cum[4]) + ', and it is at ' + pct(sea.cum[8]) + ' after eight. The other eight cities sit between the two almost all the way.';
+  $('benchText').textContent = 'No. I ran every city three ways: against its own regional marker, against Gulf Coast gasoline for all ten, and against Brent crude for all ten. Chicago is the fastest and Seattle the slowest all three times. Street margin in play after a 10¢ move, dollars per million gallons a week:';
+  $('whyText').textContent = 'Two things line up with the ranking. Chicago and Cleveland pump prices move almost twice as much from one week to the next as Boston, New York, Houston or Seattle (a standard deviation of ' + chi.vol.toFixed(1) + '¢ and ' + cle.vol.toFixed(1) + '¢, against ' + bos.vol.toFixed(1) + '¢ to ' + sea.vol.toFixed(1) + '¢). Midwest streets are known for a sawtooth, a sharp restoration followed by days of undercutting, and published research finds that costs pass through two to three times faster in markets that price that way (Lewis and Noel, 2011). Seattle is the opposite case. Western Washington gets most of its gasoline from five Puget Sound refineries, moved on one pipeline and by barge, and EIA treats the Pacific Northwest as a market set apart from the rest of the West Coast.';
+  $('dirText').textContent = 'It holds almost everywhere. In Houston ' + pct(hou.per.all.up0) + ' of a rise is at the pump by the first survey, against ' + pct(hou.per.all.dn0) + ' of a fall. Seattle is the exception: it is slow in both directions (' + pct(sea.per.all.up0) + ' against ' + pct(sea.per.all.dn0) + ').';
+  $('eraText').textContent = 'The Midwest is the part I did not expect. From 2015 to 2019 Chicago passed a fall on at least as fast as a rise: ' + pct(chi.per.p1519.dn0) + ' of a fall was at the pump by the first survey. Since 2021 it is ' + pct(chi.per.p2126.dn0) + '. Cleveland shows the same break, ' + pct(cle.per.p1519.dn0) + ' then ' + pct(cle.per.p2126.dn0) + '. Rises barely changed (' + pct(chi.per.p1519.up0) + ' then ' + pct(chi.per.p2126.up0) + ' in Chicago). On the way down the Midwest now behaves like everyone else, and that is why Chicago, still the fastest city, is slower than it was.';
+  const so = $('dirSo'); so.textContent = ''; const sb = document.createElement('b'); sb.textContent = 'What a pricing team can do with it'; so.appendChild(sb);
+  so.appendChild(document.createTextNode('Street margin is rebuilt in the weeks after wholesale falls, not spread evenly through the year. In Chicago since 2021 a 10¢ fall has been worth ' + kd(fallNow) + ' per million weekly gallons to the street before it is passed on. From 2015 to 2019 it was ' + kd(fallThen) + '. Those three weeks are the window to watch competitor moves daily and decide, site by site, how long to hold.'));
+  $('y26Text').textContent = '2026 is the year shipping through the Strait of Hormuz stopped for a time. Brent spot averaged $' + D.brent.jan + ' a barrel in the first full week of January and $' + D.brent.peak + ' in the second week of April. Gulf Coast wholesale gasoline averaged ' + usd(sh.gulf_low.v) + ' a gallon in the week before Christmas and ' + usd(sh.gulf_last.v) + ' in the last full week of September.';
+  $('y26Text2').textContent = 'Crude is only part of it. Gasoline over Brent went from ' + Math.round(sh.q4_25.crack * 100) + '¢ a gallon in the last quarter of 2025 to ' + usd(sh.q3_26.crack) + ' in July to September 2026. The street went the other way. The gap between the Chicago pump price and Gulf Coast wholesale narrowed by ' + cts(-g.gap_chicago) + ', from ' + usd(sh.q4_25.chi_gulf) + ' to ' + usd(sh.q3_26.chi_gulf) + '.';
+  const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'all'];
+  $('y26Text3').textContent = 'It is not only Chicago. The same gap narrowed in ' + words[nar.length] + ' of the ten cities, by ' + cts(nar[0]) + ' to ' + cts(nar[nar.length - 1]) + '.';
+  $('y26Text4').textContent = 'Is that just timing? A pump price that trails a rising wholesale price always shows a thinner gap for a while. Using the speeds measured above, timing explains ' + cts(-chi.y26.gulf.lag) + ' of Chicago’s ' + cts(-chi.y26.gulf.change) + '. Chicago is fast, so very little of what happened there is lag. Seattle is the reverse: ' + cts(-sea.y26.gulf.lag) + ' of its ' + cts(-sea.y26.gulf.change) + ' is timing. On top of that, Washington’s carbon allowance price fell from $64.56 at the June auction to $39.50 in September. At about 8 kg of CO2 a gallon, that is worth up to roughly another 20¢. Seattle’s street was not squeezed. It was timing and cheaper carbon.';
+  $('y26Text5').textContent = 'Part of the 2026 story is the Gulf Coast itself. In September Gulf Coast gasoline averaged ' + cts(D.gulf_nyh.sep26) + ' above New York Harbor. From 2015 to 2025 it averaged ' + cts(-D.gulf_nyh.hist_mean) + ' below and was never more than ' + cts(D.gulf_nyh.hist_max) + ' above. Measured against New York Harbor, Chicago’s narrowing is ' + cts(-chi.y26.nyh.change) + '.';
+  const s3 = $('y26So'); s3.textContent = ''; const b3 = document.createElement('b'); b3.textContent = 'What a pricing team can do with it'; s3.appendChild(b3);
+  s3.appendChild(document.createTextNode('Take the lag out before reading a squeeze, and judge street pricing on the whole chain from crude to pump. A street target built on last year’s gap would have flagged both markets in 2026. Chicago’s gap really did narrow, in a year when the gallon as a whole earned ' + cts(g.crude_to_pump_chicago) + ' more over crude. Most of Seattle’s change is timing and cheaper carbon.'));
+  table($('tbL'), ['City', 'After a 10¢ rise: given up', 'After a 10¢ fall: kept', 'Weeks to pass on 90%'],
+    ORDER.map(k => [CT[k].name, kd(CT[k].lag_up), kd(CT[k].lag_dn), CT[k].w90 == null ? 'More than 8' : String(CT[k].w90)]), ri => MAIN(ORDER[ri]));
+  $('firmText').textContent = 'Seattle’s rise figure is ' + kd(sea.lag_up) + ', give or take ' + kd(2 * sea.lag_up_se) + ' (two standard errors). Seattle is the slowest of the ten cities on every benchmark I tested.';
+  $('mMeta').textContent = D.meta.weeks + ' weekly observations, January 5, 2015 to September 28, 2026.';
+  const sel = $('simS'); sel.textContent = '';
+  const o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'another city'; sel.appendChild(o0);
+  ORDER.filter(k => !MAIN(k)).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = CT[k].name; sel.appendChild(o); });
+}
+
+const MS = {u: -1, raf: 0, t0: 0, els: null, ran: false};
+const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function shareAt(arr, u) {
+  const a = capArr(arr);
+  if (u <= -1) return 0;
+  if (u < 0) return a[0] * (u + 1);
+  if (u >= 8) return a[8];
+  const i = Math.floor(u), f = u - i;
+  return a[i] + (a[i + 1] - a[i]) * f;
+}
+function figMap() {
+  const host = $('cMap'); host.textContent = '';
+  const M = D.map, W = Math.max(260, host.clientWidth), k = W / M.w, top = 36, wide = W >= 480, H = Math.round(M.h * k) + top + (wide ? 64 : 14);
+  const s = svg('svg', {viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': 'Animated map: a 10 cent wholesale move reaches the pump in ten U.S. cities. Chicago passes it on fastest, Seattle slowest. Refinery sites marked at Cherry Point, Washington and Whiting, Indiana.'}, host);
+  const defs = svg('defs', {}, s);
+  const pat = svg('pattern', {id: 'usdots', patternUnits: 'userSpaceOnUse', width: 7, height: 7}, defs);
+  svg('circle', {cx: 3.5, cy: 3.5, r: 1.25, fill: '#363E39'}, pat);
+  const cp = svg('clipPath', {id: 'usclip'}, defs); svg('path', {d: M.outline}, cp);
+  const fl = svg('filter', {id: 'mglow', x: '-100%', y: '-100%', width: '300%', height: '300%'}, defs); svg('feGaussianBlur', {stdDeviation: 9}, fl);
+  const g = svg('g', {transform: 'translate(0,' + top + ') scale(' + k + ')'}, s);
+  svg('rect', {x: 0, y: 0, width: M.w, height: M.h, fill: 'url(#usdots)', 'clip-path': 'url(#usclip)'}, g);
+  svg('path', {d: M.outline, fill: 'none', stroke: '#2A302C', 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke'}, g);
+  const P = q => [q[0] * k, q[1] * k + top], zk = Math.min(1.15, Math.max(.72, k));
+  const tip = document.createElement('div'); tip.className = 'tip'; host.appendChild(tip);
+  const hover = (x, y, head, rows, el) => {
+    const on = () => { tipRows(tip, head, rows); let left = x + 18; if (left + tip.offsetWidth > host.clientWidth) left = x - tip.offsetWidth - 18; tip.style.left = Math.max(0, left) + 'px'; tip.style.top = (y + 12) + 'px'; tip.style.opacity = 1; };
+    const off = () => { tip.style.opacity = 0; };
+    el.addEventListener('pointerenter', on); el.addEventListener('pointerleave', off); el.addEventListener('focus', on); el.addEventListener('blur', off);
+  };
+  const els = {rings: [], ripples: []};
+  ORDER.slice().sort((a, b) => (MAIN(a) ? 1 : 0) - (MAIN(b) ? 1 : 0)).forEach(c => {
+    const [x, y] = P(M.pts[c]), main = MAIN(c), r = (main ? 18 : 8.5) * zk, sw = main ? 3.6 : 2.2, colr = main ? C[c] : '#9AA39C', circ = 2 * Math.PI * r;
+    const glow = main ? svg('circle', {cx: x, cy: y, r: r + 8, fill: C[c], filter: 'url(#mglow)', opacity: 0}, s) : null;
+    const rip = svg('circle', {cx: x, cy: y, r: r, fill: 'none', stroke: colr, 'stroke-width': 1.2, opacity: 0}, s);
+    svg('circle', {cx: x, cy: y, r: r, fill: 'none', stroke: '#2C332E', 'stroke-width': sw}, s);
+    const prog = svg('circle', {cx: x, cy: y, r: r, fill: 'none', stroke: colr, 'stroke-width': sw, 'stroke-linecap': 'round', transform: 'rotate(-90 ' + x + ' ' + y + ')', 'stroke-dasharray': '0 ' + circ}, s);
+    svg('circle', {cx: x, cy: y, r: main ? 3.2 : 2.2, fill: colr}, s);
+    els.rings.push({c: c, prog: prog, circ: circ, glow: glow});
+    els.ripples.push({el: rip, r: r});
+  });
+  const dia = (x, y) => svg('path', {d: 'M' + x + ' ' + (y - 5.5) + 'L' + (x + 5.5) + ' ' + y + 'L' + x + ' ' + (y + 5.5) + 'L' + (x - 5.5) + ' ' + y + 'Z', fill: '#C9B387', stroke: C.bg, 'stroke-width': 1.5}, s);
+  const R0 = 18 * zk;
+  const [sx, sy] = P(M.pts.seattle), [cx, cy] = P(M.ref.cherry);
+  dia(cx, cy);
+  const lx = sx + R0 + 14;
+  txt(s, lx, cy + 4, 'Cherry Point refinery', {class: 'pt halo'});
+  const st = Math.max(sy + 4, cy + 20);
+  txt(s, lx, st, 'SEATTLE', {class: 'cap halo'});
+  els.seaNum = txt(s, lx, st + 26, '0%', {class: 'big halo'});
+  txt(s, lx, st + 44, kd(CT.seattle.lag) + ' in play', {class: 'small halo'});
+  const [hx, hy] = P(M.pts.chicago), [wx, wy] = P(M.ref.whiting);
+  txt(s, hx, hy - R0 - 52, 'CHICAGO', {class: 'cap halo', 'text-anchor': 'middle'});
+  els.chiNum = txt(s, hx, hy - R0 - 26, '0%', {class: 'big halo', 'text-anchor': 'middle'});
+  txt(s, hx, hy - R0 - 10, kd(CT.chicago.lag) + ' in play', {class: 'small halo', 'text-anchor': 'middle'});
+  dia(wx, wy);
+  const ly = wy + R0 + 20, wl = txt(s, wx + 26, ly + 4, 'Whiting refinery', {class: 'pt halo'});
+  let lex = wx + 23;
+  if (wx + 26 + wl.getComputedTextLength() > W - 4) { wl.setAttribute('x', wx - 26); wl.setAttribute('text-anchor', 'end'); lex = wx - 23; }
+  svg('line', {x1: wx, y1: wy + 6, x2: lex, y2: ly, stroke: '#6D695F', 'stroke-width': 1}, s);
+  if (wide) {
+    txt(s, 2, H - 38, 'AFTER A 10¢ WHOLESALE MOVE', {class: 'cap'});
+    els.counter = txt(s, 2, H - 8, '', {class: 'week'});
+  }
+  $('tlab').style.display = wide ? 'none' : '';
+  ORDER.forEach(c => {
+    const [x, y] = P(M.pts[c]), a = capArr(CT[c].cum);
+    const h = svg('circle', {cx: x, cy: y, r: Math.max(14, (MAIN(c) ? 22 : 12) * zk), fill: 'transparent', tabindex: 0}, s);
+    hover(x, y, CT[c].name, [['At the first survey', pct(a[0])], ['After 4 weeks', pct(a[4])], ['After 8 weeks', pct(a[8])], ['In play, 10¢ move', kd(CT[c].lag)]], h);
+  });
+  const ref = {cherry: ['Cherry Point, Blaine, Washington', 'Largest refinery in Washington'], whiting: ['Whiting, Indiana', 'Largest refinery in the Midwest']};
+  [['cherry', cx, cy], ['whiting', wx, wy]].forEach(q => { const h = svg('circle', {cx: q[1], cy: q[2], r: 9, fill: 'transparent', tabindex: 0}, s); hover(q[1], q[2], ref[q[0]][0], [[ref[q[0]][1], '']], h); });
+  MS.els = els;
+  mapDraw(MS.u);
+}
+function mapDraw(u) {
+  const e = MS.els; if (!e) return;
+  e.rings.forEach(r => {
+    const p = shareAt(CT[r.c].cum, u);
+    r.prog.setAttribute('stroke-dasharray', (p * r.circ).toFixed(2) + ' ' + r.circ.toFixed(2));
+    if (r.glow) r.glow.setAttribute('opacity', (p * .55).toFixed(3));
+  });
+  e.ripples.forEach(q => {
+    if (u < 0 && u > -1) { const f = u + 1; q.el.setAttribute('r', (q.r + 26 * f).toFixed(1)); q.el.setAttribute('opacity', (.75 * (1 - f)).toFixed(3)); }
+    else q.el.setAttribute('opacity', 0);
+  });
+  e.seaNum.textContent = pct(shareAt(CT.seattle.cum, u));
+  e.chiNum.textContent = pct(shareAt(CT.chicago.cum, u));
+  const lab = u < 0 ? 'The move hits' : u < 1 ? 'First survey' : 'Week ' + Math.floor(u);
+  if (e.counter) e.counter.textContent = lab;
+  $('tlab').textContent = lab;
+}
+function mapPlay() {
+  cancelAnimationFrame(MS.raf);
+  if (RM) { MS.u = 8; mapDraw(8); return; }
+  MS.t0 = performance.now();
+  const frame = ts => {
+    const u = Math.min(8, -1 + (ts - MS.t0) / 680);
+    MS.u = u; mapDraw(u);
+    if (u < 8) MS.raf = requestAnimationFrame(frame);
+  };
+  MS.raf = requestAnimationFrame(frame);
+}
+
+function render() { figMap(); fig0(); fig1(); fig2(); fig3(); sim(); }
+text(); render();
+if ('IntersectionObserver' in window) {
+  MS.out = true;
+  new IntersectionObserver(es => {
+    const e = es[0];
+    if (e.intersectionRatio === 0) MS.out = true;
+    else if (e.intersectionRatio >= .35 && MS.out) { MS.out = false; setTimeout(mapPlay, MS.ran ? 150 : 350); MS.ran = true; }
+  }, {threshold: [0, .35]}).observe($('cMap'));
+} else mapPlay();
+$('simR').addEventListener('input', sim);
+function pick(k) { simM = k; $('simM').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.m === k ? 'true' : 'false')); $('simS').value = MAIN(k) ? '' : k; sim(); }
+$('simM').querySelectorAll('button').forEach(b => b.addEventListener('click', () => pick(b.dataset.m)));
+$('simS').addEventListener('change', ev => { if (ev.target.value) pick(ev.target.value); });
+document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => { if (d.open) render(); }));
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+</script>
+</body>
+</html>
