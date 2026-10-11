@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Price the clause | Hari Krishna Amba</title>
+<meta name="author" content="Hari Krishna Amba">
+<meta name="description" content="What the price adjustment clause in a maintenance contract is worth, measured on public wage and price data from 2019 to 2025.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Price the clause">
+<meta property="og:description" content="What the price adjustment clause in a maintenance contract is worth, measured on public wage and price data from 2019 to 2025.">
+<meta property="og:url" content="https://harikrishnaamba.github.io/price-the-clause/">
+<meta property="og:image" content="https://harikrishnaamba.github.io/price-the-clause/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Jost:wght@300;400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0E100F; --bg-rgb:14,16,15; --panel:#161917; --line:#282D29; --line-2:#363C37;
+  --text:#ECE6DA; --soft:#CFC8BA; --muted:#9C968A; --faint:#6D695F;
+  --gold:#C9B387; --gold-2:#DCCAA4; --sage:#8FD3A4; --clay:#EE6B4D; --ivory:#EFE8DA; --stone:#7C786E;
+  --display:"Libre Caslon Display","Libre Caslon Text","Didot","Georgia",serif;
+  --serif:"Libre Caslon Text","Georgia",serif;
+  --sans:"Jost","Futura","Avenir Next","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;font-variant-numeric:lining-nums;background:var(--bg);color:var(--text);font:300 17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--bg)}
+a{color:var(--text);text-decoration:none}
+:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.wrap{max-width:1500px;margin:0 auto;padding-inline:clamp(20px,4vw,64px)}
+#stage{display:none}
+main,header,footer{position:relative;z-index:3}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(var(--bg-rgb),.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:30px;padding-block:13px}
+.brand{display:block;margin-right:auto}
+.brand .bn{display:block;font:400 25px/1.1 var(--display);letter-spacing:.01em;color:var(--ivory)}
+.brand .br{display:block;margin-top:5px;font:400 11px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.nav{display:flex;gap:26px}
+.nav a{font:400 12px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+.nav a:hover{color:var(--gold-2)}
+@media (max-width:1180px){.nav{display:none}}
+.hlinks{display:flex;gap:10px}
+.pill{font:400 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;padding:11px 15px;border:1px solid var(--line-2);color:var(--text);transition:color .3s,border-color .3s,background .3s;white-space:nowrap}
+.pill:hover{border-color:var(--gold);color:var(--gold-2)}
+.pill.solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.pill.solid:hover{background:var(--gold-2);border-color:var(--gold-2);color:var(--bg)}
+@media (max-width:560px){.hide-sm{display:none}.brand .bn{font-size:21px}}
+
+.scene{display:grid;grid-template-columns:minmax(0,41fr) minmax(0,59fr);gap:clamp(20px,3vw,56px);align-items:center;min-height:100vh;min-height:100svh;padding-block:92px 36px}
+.still .scene{min-height:780px}
+.scene.wide{grid-template-columns:minmax(0,1fr);min-height:0;padding-block:96px 56px}
+@media (max-width:1099px){.scene{grid-template-columns:minmax(0,1fr);min-height:0;padding-block:58px 18px;gap:20px}}
+.lab{margin:0;font:400 12.5px/1.6 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2{font-weight:400;font-family:var(--display);text-wrap:balance;margin:12px 0 0;color:var(--ivory)}
+h1{font-size:clamp(44px,4.6vw,70px);line-height:1;letter-spacing:-.012em}
+h2{font-size:clamp(29px,2.9vw,44px);line-height:1.1}
+.deck{margin:16px 0 0;font:400 clamp(20px,1.7vw,26px)/1.32 var(--display);color:var(--gold-2);text-wrap:balance}
+.lead{margin:18px 0 0;color:var(--soft);font-size:clamp(16px,1.16vw,17.5px);line-height:1.62}
+.big3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--gold);border-bottom:1px solid var(--line);margin-top:22px}
+.big3 > div{padding:15px 12px 16px 0}
+.big3 > div + div{padding-left:15px;border-left:1px solid var(--line)}
+.big3 strong{display:block;font:500 clamp(25px,2.35vw,34px)/1 var(--sans);letter-spacing:-.02em;color:var(--gold-2);font-variant-numeric:lining-nums tabular-nums}
+.big3 > div > span{display:block;margin-top:8px;font:400 13.5px/1.4 var(--sans);color:var(--muted)}
+.big3 strong.g{color:var(--sage)}.big3 strong.y{color:var(--gold-2)}.big3 strong.r{color:var(--clay)}
+@media (max-width:520px){.big3{grid-template-columns:minmax(0,1fr)}.big3 > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.read{margin:18px 0 0;border-left:1px solid var(--gold);padding:2px 0 2px 15px;font:300 15px/1.55 var(--sans);color:var(--soft)}
+.fcard{margin-top:18px;border:1px solid var(--line-2);background:rgba(22,25,23,.72);padding:14px 16px 15px}
+.fcard b{display:block;font:400 11.5px/1.4 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.fcard p{margin:0;font-size:15px;line-height:1.55;color:var(--soft)}
+.fcard .eq{font:400 17px/1.5 var(--sans);color:var(--ivory);margin-bottom:8px}
+.fcard .eq i{font-style:normal;color:var(--gold-2)}
+.fcard em{font-style:normal;font-weight:500;color:var(--ivory)}
+.read b{display:block;font:400 11.5px/1.4 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+
+.fig{margin:0;min-width:0}
+.ptitle{margin:0;font:400 15px/1.4 var(--sans);color:var(--text)}
+.ptitle em{font-style:normal;color:var(--muted)}
+.key{display:flex;flex-wrap:wrap;gap:5px 18px;margin-top:7px;font:400 13px/1.4 var(--sans);color:var(--soft)}
+.key i{display:inline-block;width:10px;height:10px;margin-right:7px;border-radius:2px}
+.view{position:relative;aspect-ratio:16/10.4;margin-top:4px}
+@media (max-width:1099px){.view{aspect-ratio:1/1.02}}
+.snap{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.no3d .fig{display:none}
+.gridt{display:none;margin-top:12px}
+.fig.flat .view{display:none}
+.fig.flat .gridt{display:table}
+.gridt th{font-size:10.5px;letter-spacing:.06em;padding:6px 3px;text-align:center;border-bottom:0}
+.gridt th:first-child{text-align:left}
+.gridt td{padding:3px;border:0;text-align:center}
+.gridt td:first-child{color:var(--soft);text-align:left;font-size:13px;padding-right:8px;white-space:nowrap}
+.gridt td span{display:block;padding:10px 2px;border-radius:2px;color:#1B1E1C;font:500 13px/1 var(--sans)}
+.gridt .cg{background:var(--sage)}.gridt .cy{background:var(--gold)}.gridt .cr{background:var(--clay)}
+.lbl{position:absolute;inset:0;pointer-events:none}
+.t{position:absolute;left:0;top:0;white-space:nowrap;transform:translate(-50%,-100%);font:500 15px/1.15 var(--sans);color:var(--text);font-variant-numeric:lining-nums tabular-nums;text-align:center;text-shadow:0 1px 5px rgba(var(--bg-rgb),.95),0 0 2px rgba(var(--bg-rgb),.95)}
+.t b{font-weight:500;display:block}
+.t i{font-style:normal;display:block;font:400 12.5px/1.2 var(--sans);color:var(--soft);margin-top:2px}
+.t.ax{font:400 13px/1.2 var(--sans);color:var(--muted)}
+.t.ax b{font-weight:400;color:var(--soft)}
+.t.ax i{font-size:12px;color:var(--muted)}
+.t.ttl{font:400 11.5px/1.2 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.t.l{transform:translate(-100%,-50%);text-align:right}
+.t.b{transform:translate(-50%,7px)}
+.t.end{transform:translate(12px,-50%);text-align:left}
+.t.in{transform:translate(-50%,-50%);font:500 12px/1 var(--sans);text-shadow:0 1px 3px rgba(var(--bg-rgb),.8)}
+.t.in.dk{color:#1B1E1C;text-shadow:none}
+.t.in.gv{font-size:13.5px}
+.t.note.lft{transform:translate(-100%,-100%);text-align:right}
+.t.note.lft::after{margin:5px 0 0 auto}
+.t.note{font:400 13px/1.25 var(--sans)}
+.t.note::after{content:"";display:block;width:1px;height:16px;background:currentColor;opacity:.5;margin:5px auto 0}
+.t.g,.t.g i{color:var(--sage)}.t.y,.t.y i{color:var(--gold-2)}.t.r,.t.r i{color:var(--clay)}.t.iv{color:var(--ivory)}
+.nar .t{font-size:12px}.nar .t i{font-size:10.5px}.nar .t.ax{font-size:10.5px}.nar .t.end i{display:none}.nar .t.end{transform:translate(7px,-50%)}
+.nar .t.ax.wrapname{white-space:normal;width:52px;line-height:1.15}
+
+.ctl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;margin-top:18px;align-items:end}
+.ctl label{display:block;font:400 11.5px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctl select,.ctl input{display:block;width:100%;height:46px;margin:7px 0 0;background:var(--panel);color:var(--text);border:1px solid var(--line-2);border-radius:0;padding:0 12px;font:400 16px/44px var(--sans);font-variant-numeric:lining-nums tabular-nums;letter-spacing:0;text-transform:none}
+.ctl select:focus,.ctl input:focus{outline:none;border-color:var(--gold)}
+.ctl label.off{opacity:.35}
+@media (max-width:420px){.ctl{grid-template-columns:minmax(0,1fr)}}
+.chip{margin:14px 0 0;padding:10px 13px;border:1px solid var(--line-2);font:400 15px/1.45 var(--sans);color:var(--soft)}
+.chip b{font-weight:500}
+.chip.g{border-color:rgba(143,211,164,.55)}.chip.g b{color:var(--sage)}
+.chip.y{border-color:rgba(220,202,164,.55)}.chip.y b{color:var(--gold-2)}
+.chip.r{border-color:rgba(238,107,77,.6)}.chip.r b{color:var(--clay)}
+table{border-collapse:collapse;width:100%;font:400 14.5px/1.35 var(--sans);font-variant-numeric:lining-nums tabular-nums}
+th{font:400 11.5px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid var(--line-2);vertical-align:bottom}
+td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);color:var(--soft);vertical-align:top}
+td.n,th.n{text-align:right;padding-right:0;padding-left:10px}
+td b{font-weight:500;color:var(--text)}
+td .g{color:var(--sage)}td .y{color:var(--gold-2)}td .r{color:var(--clay)}
+.tryt{margin-top:12px}
+.tryt td,.tryt th{padding-block:5px}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:30px;align-items:start}
+@media (max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+.meas{margin:26px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--gold);border-bottom:1px solid var(--line)}
+.meas > div{padding:18px 18px 20px 0}
+.meas > div + div{padding-left:20px;border-left:1px solid var(--line)}
+.meas dt{font:400 clamp(21px,1.9vw,27px)/1.15 var(--display);color:var(--ivory)}
+.meas dd{margin:9px 0 0;color:var(--soft);font-size:16px;line-height:1.55}
+.meas dd em{font-style:normal;color:var(--gold-2)}
+@media (max-width:900px){.meas{grid-template-columns:minmax(0,1fr)}.meas > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+h3{font:400 12.5px/1.6 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+.under{margin:12px 0 0;font-size:15px;line-height:1.55;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px}
+.ask{margin:54px 0 0;font:400 clamp(30px,3.4vw,52px)/1.1 var(--display);color:var(--ivory);text-wrap:balance;max-width:22ch}
+.ask em{font-family:var(--serif);font-style:italic;color:var(--gold-2)}
+.about{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:56px;padding-top:34px;border-top:1px solid var(--line);align-items:start}
+@media (max-width:900px){.about{grid-template-columns:minmax(0,1fr)}}
+.about h2{margin-top:0}
+.role{margin:8px 0 0;font:400 12px/1.5 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.about .body p{margin:14px 0 0;color:var(--soft)}
+.mail{display:inline-block;margin-top:16px;font:400 19px/1.3 var(--sans);color:var(--gold-2)}
+.alinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.facts{margin:0}
+.facts div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding-block:13px;border-bottom:1px solid var(--line)}
+.facts dt{font:400 11.5px/1.9 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0;font-size:16px;line-height:1.55;color:var(--soft)}
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;padding-block:22px;font:400 13px/1.6 var(--sans);color:var(--muted)}
+footer a{color:var(--soft)}
+</style>
+<script>document.documentElement.classList.add("js");if(/[?&]still/.test(location.search))document.documentElement.classList.add("still");</script>
+</head>
+<body>
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://harikrishnaamba.github.io/"><span class="bn">Hari Krishna Amba</span><span class="br">Senior Pricing Analyst</span></a>
+  <nav class="nav"><a href="#claim">Claim</a><a href="#formula">Formula</a><a href="#grid">Grid</a><a href="#yours">Your contract</a><a href="#asking">Asking</a><a href="#rule">Rule</a><a href="#sources">Sources</a></nav>
+  <div class="hlinks"><a class="pill hide-sm" href="https://harikrishnaamba.github.io/">Portfolio</a><a class="pill solid" href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">LinkedIn &#8599;</a></div>
+</div></header>
+
+<main><div class="wrap">
+
+<section class="scene" id="claim">
+  <div>
+    <p class="lab">01 &middot; The claim</p>
+    <h1>Price the clause.</h1>
+    <p class="deck">The same $1,000 contract costs <span data-f="heroLow">$1,187.37</span> or <span data-f="heroHigh">$1,256.22</span> a month six years later. The only difference is one paragraph.</p>
+    <p class="lead">That paragraph says how the price moves each year: with the mechanic's wage, by a fixed percent, or with consumer prices. This page measures what each choice was worth, on public data from 2019 to 2025.</p>
+    <div class="big3">
+      <div><strong data-f="heroSpread">$68.85</strong><span>a month between the highest and the lowest clause after six years</span></div>
+      <div><strong data-f="heroFixedWorth">1.21%</strong><span>the day-one discount that a fixed 3% a year came to</span></div>
+      <div><strong data-f="heroCapWorth">0.04%</strong><span>the day-one discount that a 5.50% cap came to: almost nothing</span></div>
+    </div>
+    <p class="read"><b>How to read it</b>Each line is the same contract under a different clause. Ivory is the formula, the wage-based clause on the next screen. Green ended at or above it, yellow behind it, red far enough behind to re-price. A day-one discount is the cut in the starting price that costs the provider the same.</p>
+  </div>
+  <figure class="fig">
+    <p class="ptitle">One contract at $1,000 a month in January 2019, by clause <em>&middot; price in dollars a month, each January</em></p>
+    <div class="key"><span><i style="background:var(--ivory)"></i>The formula</span><span><i style="background:var(--sage)"></i>Consumer Price Index in its place</span><span><i style="background:var(--gold)"></i>A fixed 3% a year</span><span><i style="background:var(--clay)"></i>An index limit</span></div>
+    <div class="view" data-chart="hero"><canvas class="snap"></canvas><div class="lbl"></div></div>
+  </figure>
+</section>
+
+<section class="scene" id="formula">
+  <div>
+    <p class="lab">02 &middot; The formula</p>
+    <h2>The formula follows a public wage rate.</h2>
+    <div class="fcard">
+      <b>The formula, in plain words</b>
+      <p class="eq">New price = labor part &times; <i>rate plus benefits now &divide; at signing</i> + material part &times; <i>metals index now &divide; at signing</i></p>
+      <p>Labor is <span data-f="wLab2">93.29%</span> of the starting price and material <span data-f="wMet2">6.71%</span>. A $1,000 contract signed in January 2019, at its first adjustment in January 2020: <span data-f="exLab">$932.90</span> &times; <span data-f="exL1">93.235</span> &divide; <span data-f="exL0">90.315</span> + <span data-f="exMat">$67.10</span> &times; <span data-f="exM1">216.9</span> &divide; <span data-f="exM0">227.2</span> = <em data-f="exNew">$1,027.12</em>.</p>
+    </div>
+    <div class="big3">
+      <div><strong data-f="lab2025">$109.12</strong><span>hourly rate plus benefits on January 1, 2025</span></div>
+      <div><strong data-f="labMax">3.23%</strong><span>its largest yearly rise in six years; the smallest was <span data-f="labMin">3.12%</span></span></div>
+      <div><strong data-f="cpi2021">7.04%</strong><span>what consumer prices rose in 2021; this line then rose <span data-f="lab2022">3.23%</span></span></div>
+    </div>
+    <p class="read"><b>How to read it</b>One column for January 1 of each year, as the U.S. Department of Labor publishes it: the union mechanic's hourly rate at the bottom, benefits on top, the total above and its rise under the year.</p>
+  </div>
+  <figure class="fig">
+    <p class="ptitle">Elevator mechanic, Chicago area <em>&middot; dollars an hour on January 1 of each year</em></p>
+    <div class="key"><span><i style="background:var(--ivory)"></i>Hourly rate</span><span><i style="background:var(--stone)"></i>Benefits</span></div>
+    <div class="view" data-chart="cost"><canvas class="snap"></canvas><div class="lbl"></div></div>
+  </figure>
+</section>
+
+<section class="scene" id="grid">
+  <div>
+    <p class="lab">03 &middot; One level down</p>
+    <h2>Two fields sort a whole contract book: the year signed and the clause.</h2>
+    <div class="big3">
+      <div><strong class="r"><span data-f="gridRed">3</span> of 24</strong><span>kinds of contract are red, all signed in 2019 or 2020</span></div>
+      <div><strong data-f="gridMin">-2.47%</strong><span>the furthest behind: an index limit signed in January 2019</span></div>
+      <div><strong data-f="gridMax">+5.75%</strong><span>the furthest ahead: the Consumer Price Index signed in January 2021</span></div>
+    </div>
+    <p class="lead">Each block is one kind of contract, and its number is the price in January 2025 against the formula. Everything signed from 2022 on is level or ahead, whatever the clause. The renewals to look at first are the index limit contracts signed in 2019 and 2020 and the fixed 3% contracts signed in 2020.</p>
+    <p class="read"><b>How to read it</b>Across: the January the contract was signed. Front to back: the clause it carries. A block rises as far as its price sits below the formula, so the tall ones are the work list. Flat green tiles are level with the formula or ahead of it.</p>
+  </div>
+  <figure class="fig">
+    <p class="ptitle">Price in January 2025 against the formula <em>&middot; percent, by year signed and clause</em></p>
+    <div class="key"><span><i style="background:var(--sage)"></i>Level or ahead: at most 0.50% behind</span><span><i style="background:var(--gold)"></i>Behind: 0.50% to 2.00%</span><span><i style="background:var(--clay)"></i>Re-price: more than 2.00% behind</span></div>
+    <div class="view" data-chart="grid"><canvas class="snap"></canvas><div class="lbl"></div></div>
+    <table class="gridt" id="gridFlat"></table>
+  </figure>
+</section>
+
+<section class="scene" id="yours">
+  <div>
+    <p class="lab">04 &middot; Your contract</p>
+    <h2>Put in a contract you know.</h2>
+    <form class="ctl" id="ctl" onsubmit="return false">
+      <label>Price a month, dollars<input id="iPrice" type="number" min="1" step="0.01" value="1000" inputmode="decimal"></label>
+      <label>Signed in January of<select id="iYear"><option>2019</option><option selected>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option></select></label>
+      <label>Clause<select id="iKind"><option value="fixed" selected>A fixed percent a year</option><option value="indexCap">Consumer Price Index with a cap</option><option value="index">Consumer Price Index, no cap</option><option value="limitYear">Index limit, year's percent asked</option><option value="limitCatch">Index limit, gap asked back</option><option value="cap">The formula with a cap</option></select></label>
+      <label id="lPct">Percent a year<input id="iPct" type="number" min="0" max="20" step="0.25" value="3" inputmode="decimal"></label>
+    </form>
+    <div class="big3">
+      <div><strong id="oAgainst" class="r">2.29%</strong><span id="oAgainstLab">behind the formula in January 2025</span></div>
+      <div><strong id="oShort">$27.12</strong><span id="oShortLab">a month under the formula today</span></div>
+      <div><strong id="oWorth">1.81%</strong><span>the same as this discount on day one</span></div>
+    </div>
+    <p class="chip r" id="oChip"><b>Red.</b> More than 2.00% behind the formula. Re-price at renewal.</p>
+    <table class="tryt"><thead><tr><th>January</th><th class="n">The formula</th><th class="n">This clause</th><th class="n">Difference a month</th></tr></thead><tbody id="oRows"></tbody></table>
+  </div>
+  <figure class="fig">
+    <p class="ptitle">This contract <em>&middot; price in dollars a month, each January</em></p>
+    <div class="key"><span><i style="background:var(--ivory)"></i>The formula</span><span><i id="kTry" style="background:var(--clay)"></i><span id="kTryName">A fixed 3.00% a year</span></span></div>
+    <div class="view" data-chart="try"><canvas class="snap"></canvas><div class="lbl"></div></div>
+  </figure>
+</section>
+
+<section class="scene" id="asking">
+  <div>
+    <p class="lab">05 &middot; The same clause, asked two ways</p>
+    <h2>Under an index limit, what the provider asks for sets the price.</h2>
+    <div class="big3">
+      <div><strong class="r" data-f="askBehind">2.47%</strong><span>behind in 2025 if the provider asks each year only for that year's rise</span></div>
+      <div><strong class="g" data-f="askYear">2023</strong><span>the year the price is level again if it asks each year for the whole gap</span></div>
+      <div><strong>2 months</strong><span>the notice a request needs in a real city contract</span></div>
+    </div>
+    <p class="lead">A 2017 city contract for 37 elevators allows an increase only on request, never above the local Consumer Price Index for the past twelve months, and the city must approve it. Same clause, same years, two ways of asking: <span data-f="askGap">2.46</span> points apart by the sixth year.</p>
+    <p class="read"><b>How to read it</b>Ivory is the formula. Both other lines are held to the Consumer Price Index in January 2020 and 2021. From 2022 the green line asks for the gap back and reaches the formula in 2023. The red line never asks, and stays under.</p>
+  </div>
+  <figure class="fig">
+    <p class="ptitle">One contract at $1,000 a month under an index limit <em>&middot; price in dollars a month, each January</em></p>
+    <div class="key"><span><i style="background:var(--ivory)"></i>The formula</span><span><i style="background:var(--sage)"></i>Asks for the gap back</span><span><i style="background:var(--clay)"></i>Asks for the year's percent only</span></div>
+    <div class="view" data-chart="ask"><canvas class="snap"></canvas><div class="lbl"></div></div>
+  </figure>
+</section>
+
+<section class="scene wide" id="rule">
+  <div>
+    <p class="lab">06 &middot; What to run on</p>
+    <h2>Three numbers for the book, one rule for the renewal.</h2>
+    <dl class="meas">
+      <div><dt>Cost recovery</dt><dd>The price change since signing, divided by the formula's change since signing. Under 100% the contract is losing ground. A fixed 3% signed in January 2019 stands at <em data-f="recov">98.08%</em>.</dd></div>
+      <div><dt>Escalation capture</dt><dd>The increase billed, divided by the increase the clause allowed. It shows the increases that were waived, asked short or sent late. Under an index limit it was worth <em><span data-f="askGap2">2.46</span> points</em>.</dd></div>
+      <div><dt>Dollars to recover at renewal</dt><dd>The gap to the formula, times the monthly price, sorted by renewal date. That is the work list, and the red blocks above are the top of it.</dd></div>
+    </dl>
+    <div class="two">
+      <div>
+        <h3>The price of each clause</h3>
+        <table><thead><tr><th>What the buyer asks for</th><th class="n">Price in 2025 against the formula</th><th class="n">Same as a day-one discount of</th></tr></thead>
+        <tbody id="priceRows">
+          <tr><td>A 5.50% cap on the formula</td><td class="n"><span class="g">level</span></td><td class="n"><b>0.04%</b></td></tr>
+          <tr><td>The Consumer Price Index in place of the formula</td><td class="n"><span class="g">3.19% ahead</span></td><td class="n"><b>-0.38%</b></td></tr>
+          <tr><td>A fixed 3% a year</td><td class="n"><span class="y">1.92% behind</span></td><td class="n"><b>1.21%</b></td></tr>
+          <tr><td>An index limit, year's percent asked</td><td class="n"><span class="r">2.47% behind</span></td><td class="n"><b>1.79%</b></td></tr>
+          <tr><td>An index limit, gap asked back</td><td class="n"><span class="g">level</span></td><td class="n"><b>0.69%</b></td></tr>
+        </tbody></table>
+        <p class="under">One contract signed in January 2019, six years of payments. A minus means the buyer paid more than under the formula. A contract can price how the customer pays; this is the same idea for how the price moves.</p>
+      </div>
+      <div>
+        <h3>The renewal rule</h3>
+        <table><thead><tr><th>Price against the formula</th><th>At renewal</th></tr></thead>
+        <tbody>
+          <tr><td><i class="sw" style="background:var(--sage)"></i><b>Green</b><br>at most 0.50% behind</td><td>Leave the price. Keep the clause.</td></tr>
+          <tr><td><i class="sw" style="background:var(--gold)"></i><b>Yellow</b><br>0.50% to 2.00% behind</td><td>Close the gap at renewal, in one step or two.</td></tr>
+          <tr><td><i class="sw" style="background:var(--clay)"></i><b>Red</b><br>more than 2.00% behind</td><td>Re-price to the formula at renewal, and replace the clause or charge for it.</td></tr>
+        </tbody></table>
+        <p class="under">The rule needs two fields a contract system already holds: the date signed or last reset, and the clause type.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scene wide" id="sources">
+  <div>
+    <p class="lab">07 &middot; Sources and method</p>
+    <h2>Every figure comes from a public series or a public contract.</h2>
+    <div class="two">
+      <div>
+        <table><thead><tr><th>What</th><th>Where it comes from</th></tr></thead><tbody>
+          <tr><td>Mechanic's hourly rate and benefits</td><td>U.S. Department of Labor wage determinations on SAM.gov, general decisions IL20200008 to IL20260008, elevator mechanic classification ELEV0002-002, rates dated January 1, 2019 to January 1, 2025, the latest one published</td></tr>
+          <tr><td>Consumer prices</td><td>U.S. Bureau of Labor Statistics, series CUUR0000SA0, all items, U.S. city average, not seasonally adjusted, December of each year</td></tr>
+          <tr><td>Metals</td><td>U.S. Bureau of Labor Statistics, series WPU10, metals and metal products, December of each year</td></tr>
+          <tr><td>The formula and the 5.50% cap</td><td>A 2026 maintenance agreement in a public council record, Illinois</td></tr>
+          <tr><td>The fixed 3% a year</td><td>A California community college district board item, July 2020</td></tr>
+          <tr><td>The index limit</td><td>City of Pasadena, California, agenda report, January 23, 2017</td></tr>
+        </tbody></table>
+        <p class="under">All read on October 10, 2026.</p>
+      </div>
+      <div>
+        <table><thead><tr><th>How it was counted</th></tr></thead><tbody>
+          <tr><td>Each January the labor part of the price moves with the rate and benefits dated that January 1, and the index parts with the December before.</td></tr>
+          <tr><td>The labor and material shares are the ones written in the agreement: 93.29% and 6.71% of the price.</td></tr>
+          <tr><td>A day-one discount is the cut in the starting price that leaves the provider with the same total, from signing through December 2024.</td></tr>
+          <tr><td>The page computes every figure from the series on the left, and each one was counted a second time with separate code.</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <p class="ask">Is this how it looks from <em>inside</em> a service business?</p>
+    <div class="about" id="about">
+      <div>
+        <h2>Hari Krishna Amba</h2>
+        <p class="role">Senior Pricing Analyst</p>
+        <div class="body">
+          <p>A pricing analyst with a data engineering foundation. I turn invoice data into the one decision a leader needs, and build the pipelines that make those numbers trustworthy.</p>
+          <p>I built this note from public data to show how I take on a pricing problem in a new market: read the contracts first, measure it properly, check it more than one way, and end on a rule someone can use.</p>
+        </div>
+        <a class="mail" href="mailto:ambaharikrishna@gmail.com">ambaharikrishna@gmail.com</a>
+        <div class="alinks"><a class="pill solid" href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">Connect on LinkedIn &#8599;</a><a class="pill" href="https://harikrishnaamba.github.io/">See my portfolio</a><a class="pill" href="mailto:ambaharikrishna@gmail.com">Email me</a></div>
+      </div>
+      <dl class="facts">
+        <div><dt>Current</dt><dd>Senior Pricing Analyst</dd></div>
+        <div><dt>Foundation</dt><dd>Four years building data pipelines and analytics on AWS, Snowflake and Databricks</dd></div>
+        <div><dt>Education</dt><dd>M.S. Computer Science, Binghamton University</dd></div>
+        <div><dt>This note</dt><dd>Seven January wage rates, two price indexes and three public contracts, 2019 to 2025</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <span>Hari Krishna Amba &middot; Senior Pricing Analyst</span>
+  <span><a href="https://harikrishnaamba.github.io/">Portfolio</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/harikrishnaamba/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="mailto:ambaharikrishna@gmail.com">Email</a></span>
+  <span>A personal analysis of public data. Views are my own. Sources: U.S. Department of Labor and U.S. Bureau of Labor Statistics.</span>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var D={
+  rate:{2019:56.61,2020:58.47,2021:60.42,2022:62.47,2023:65.12,2024:67.84,2025:70.68},
+  ben:{2019:33.705,2020:34.765,2021:35.825,2022:36.885,2023:37.335,2024:37.885,2025:38.44},
+  benText:{2019:'33.705',2020:'34.765',2021:'35.825',2022:'36.885',2023:'37.335',2024:'37.885',2025:'38.44'},
+  cpi:{2018:251.233,2019:256.974,2020:260.474,2021:278.802,2022:296.797,2023:306.746,2024:315.605},
+  met:{2018:227.2,2019:216.9,2020:232.8,2021:331.867,2022:307.063,2023:308.284,2024:305.621},
+  wLab:882.06/945.50,wMet:63.44/945.50,first:2019,last:2025
+};
+var RULE={level:-0.005,red:-0.02};
+var YEARS=[2019,2020,2021,2022,2023,2024,2025];
+function lab(y){return D.rate[y]+D.ben[y]}
+function cpiPct(y){return D.cpi[y-1]/D.cpi[y-2]-1}
+function formula(s){var p={},y;p[s]=1;for(y=s+1;y<=D.last;y++)p[y]=D.wLab*lab(y)/lab(s)+D.wMet*D.met[y-1]/D.met[s-1];return p}
+function path(kind,s,x){var F=formula(s),p={},y,f,c;p[s]=1;x=x||0;
+  for(y=s+1;y<=D.last;y++){c=cpiPct(y);f=F[y]/F[y-1]-1;
+    p[y]=kind==='formula'?F[y]:kind==='cap'?Math.min(F[y],p[y-1]*(1+x)):kind==='index'?p[y-1]*(1+c):kind==='fixed'?p[y-1]*(1+x):
+      kind==='limitYear'?p[y-1]*(1+Math.min(f,c)):kind==='limitCatch'?Math.min(F[y],p[y-1]*(1+c)):p[y-1]*(1+Math.min(c,x))}
+  return p}
+function against(kind,s,x){return path(kind,s,x)[D.last]/formula(s)[D.last]-1}
+function paid(p,s){var t=0,y;for(y=s;y<D.last;y++)t+=12*p[y];return t}
+function worth(kind,s,x){return paid(formula(s),s)/paid(path(kind,s,x),s)-1}
+function verdict(v){return v>=RULE.level?'g':v>=RULE.red?'y':'r'}
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+function usd(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function usd3(v){var c=v*100;return Math.abs(c-Math.round(c))<1e-6?usd(v):'$'+v.toFixed(3)}
+function pc(v,sign){var a=Math.abs(v)*100,s=a.toFixed(2)+'%';if(!sign||a<0.005)return s;return (v<0?'-':'+')+s}
+function side(v){var a=Math.abs(v)*100;return a<0.05?'level':a.toFixed(2)+'% '+(v<0?'behind':'ahead')}
+function yrs(s){return YEARS.filter(function(y){return y>=s})}
+function vals(kind,s,x,base){var p=path(kind,s,x);return yrs(s).map(function(y){return base*p[y]})}
+
+/* figures in the text */
+(function(){
+  var F=formula(2019),i,lo=9,hi=0,r,cells=[],red=0,mx=null,mn=null,y;
+  for(i=2020;i<=2025;i++){r=lab(i)/lab(i-1)-1;if(r<lo)lo=r;if(r>hi)hi=r}
+  [2019,2020,2021,2022,2023,2024].forEach(function(s){[['cap',.055],['fixed',.03],['limitYear',0],['index',0]].forEach(function(c){var v=against(c[0],s,c[1]);if(verdict(v)==='r')red++;if(mx===null||v>mx)mx=v;if(mn===null||v<mn)mn=v})});
+  var catchP=path('limitCatch',2019),lvl=null;for(y=2021;y<=2025&&lvl===null;y++)if(Math.abs(catchP[y]/F[y]-1)<0.0005)lvl=y;
+  var gap=(against('limitCatch',2019)-against('limitYear',2019))*100;
+  var hi19=1000*path('index',2019)[2025],lo19=1000*path('limitYear',2019)[2025];
+  var T={heroLow:usd(lo19),heroHigh:usd(hi19),heroSpread:usd(hi19-lo19),wLab:pc(D.wLab),wMet:pc(D.wMet),wLab2:pc(D.wLab),wMet2:pc(D.wMet),exLab:usd(1000*D.wLab),exMat:usd(1000*D.wMet),exL1:lab(2020).toFixed(3),exL0:lab(2019).toFixed(3),exM1:String(D.met[2019]),exM0:String(D.met[2018]),exNew:usd(1000*F[2020]),heroFormula:usd(1000*F[2025]),heroCapWorth:pc(worth('cap',2019,.055)),heroFixedWorth:pc(worth('fixed',2019,.03)),
+    lab2025:usd(lab(2025)),labMax:pc(hi),labMin:pc(lo),loaded:usd(D.rate[2025]*(1+.08+.0765)+D.ben[2025]),
+    cpi2021:pc(cpiPct(2022)),cpi2022:pc(cpiPct(2023)),lab2022:pc(lab(2022)/lab(2021)-1),lab2023:pc(lab(2023)/lab(2022)-1),
+    gridRed:String(red),gridMin:pc(mn,true),gridMax:pc(mx,true),askBehind:pc(-against('limitYear',2019)),askYear:String(lvl),askGap:gap.toFixed(2),askGap2:gap.toFixed(2),
+    recov:pc(path('fixed',2019,.03)[2025]/F[2025])};
+  [].forEach.call(document.querySelectorAll('[data-f]'),function(el){var k=el.getAttribute('data-f');if(T[k]==null)return;if(el.textContent!==T[k]&&window.console)console.warn('figure differs: '+k+' '+el.textContent+' > '+T[k]);el.textContent=T[k]});
+  var rows=[['A 5.50% cap on the formula','cap',.055],['The Consumer Price Index in place of the formula','index',0],['A fixed 3% a year','fixed',.03],['An index limit, year\'s percent asked','limitYear',0],['An index limit, gap asked back','limitCatch',0]];
+  document.getElementById('gridFlat').innerHTML='<thead><tr><th>Signed in January</th><th>5.50% cap</th><th>Consumer Price Index</th><th>Index limit</th><th>Fixed 3%</th></tr></thead><tbody>'+[2019,2020,2021,2022,2023,2024].map(function(s){return '<tr><td>'+s+'</td>'+[['cap',.055],['index',0],['limitYear',0],['fixed',.03]].map(function(c){var v=against(c[0],s,c[1]);return '<td><span class="c'+verdict(v)+'">'+pc(v,true)+'</span></td>'}).join('')+'</tr>'}).join('')+'</tbody>';
+  document.getElementById('priceRows').innerHTML=rows.map(function(r){var a=against(r[1],2019,r[2]),v=Math.abs(a)<0.0005?'g':verdict(a);return '<tr><td>'+r[0]+'</td><td class="n"><span class="'+v+'">'+side(a)+'</span></td><td class="n"><b>'+pc(worth(r[1],2019,r[2]),true).replace('+','')+'</b></td></tr>'}).join('');
+})();
+
+/* ---------- pictures ---------- */
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var STILL=document.documentElement.classList.contains('still');
+var canvas=document.getElementById('stage'),renderer=null;
+try{if(window.THREE)renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,preserveDrawingBuffer:true})}catch(e){renderer=null}
+if(!renderer){document.documentElement.classList.add('no3d');canvas.style.display='none'}
+var SMALL=innerWidth<700,COL={ivory:0xEFE8DA,sage:0x8FD3A4,gold:0xC9B387,clay:0xEE6B4D,stone:0x7C786E},VC={g:COL.sage,y:COL.gold,r:COL.clay,iv:COL.ivory};
+function ease(q){return 1-Math.pow(1-q,3)}
+
+function Chart(view){
+  this.view=view;this.lbl=view.querySelector('.lbl');this.scene=new THREE.Scene();this.cam=new THREE.PerspectiveCamera(30,1.5,.1,100);
+  this.root=new THREE.Group();this.scene.add(this.root);this.labels=[];this.anim=[];this.t0=0;this.p=-1;this.dur=RM?1:1900;
+  this.pos=new THREE.Vector3(0,2.5,11);this.tgt=new THREE.Vector3(0,1.5,0);this.ph=Math.random()*6;
+  var s=this.scene;s.add(new THREE.AmbientLight(0xffffff,.27));s.add(new THREE.HemisphereLight(0xfff2dc,0x1b201c,.44));
+  var key=new THREE.DirectionalLight(0xfff6e8,.74);key.position.set(-5,9,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);
+  var sc=key.shadow.camera;sc.left=-7;sc.right=7;sc.top=7;sc.bottom=-7;sc.near=1;sc.far=32;key.shadow.radius=4;key.shadow.bias=-.0005;s.add(key);
+  var rim=new THREE.DirectionalLight(0xc9b387,.35);rim.position.set(6,3,-6);s.add(rim);
+  var n=110,a=new Float32Array(n*3),i;for(i=0;i<n;i++){a[i*3]=(Math.random()-.5)*10;a[i*3+1]=.3+Math.random()*4;a[i*3+2]=-2.4+Math.random()*3.4}
+  var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));
+  this.dust=new THREE.Points(g,new THREE.PointsMaterial({color:COL.gold,size:.04,transparent:true,opacity:.42,depthWrite:false}));s.add(this.dust);
+  this.snap=view.querySelector('.snap');this.ctx=this.snap.getContext('2d');this.state=0;view._c=this;
+}
+Chart.prototype.clear=function(){var r=this.root,c;while(r.children.length){c=r.children[0];r.remove(c);if(c.geometry)c.geometry.dispose();if(c.material)c.material.dispose()}
+  this.labels.forEach(function(L){L.el.parentNode&&L.el.parentNode.removeChild(L.el)});this.labels=[];this.anim=[];this.p=-1};
+Chart.prototype.tag=function(x,y,z,html,cls,o){var el=document.createElement('span');el.className='t '+(cls||'');el.innerHTML=html;this.lbl.appendChild(el);
+  var L={el:el,v:new THREE.Vector3(x,y,z),at:(o&&o.at)||0,grp:o&&o.grp,gap:(o&&o.gap)||0};this.labels.push(L);return L};
+Chart.prototype.setCam=function(px,py,pz,tx,ty,tz){this.pos.set(px,py,pz);this.tgt.set(tx,ty,tz);this.cam.position.copy(this.pos);this.cam.lookAt(this.tgt)};
+Chart.prototype.grow=function(p){for(var i=0;i<this.anim.length;i++)this.anim[i](p)};
+Chart.prototype.place=function(p){var W=this.view.clientWidth,H=this.view.clientHeight,v=new THREE.Vector3(),G={},i,L,k,a,push;
+  for(i=0;i<this.labels.length;i++){L=this.labels[i];v.copy(L.v).project(this.cam);L.x=(v.x*.5+.5)*W;L.y=(-v.y*.5+.5)*H;if(L.grp)(G[L.grp]=G[L.grp]||[]).push(L)}
+  for(k in G){a=G[k].sort(function(m,n){return m.y-n.y});push=0;for(i=1;i<a.length;i++)if(a[i].y-a[i-1].y<a[i].gap){push+=a[i-1].y+a[i].gap-a[i].y;a[i].y=a[i-1].y+a[i].gap}
+    if(push)for(i=0;i<a.length;i++)a[i].y-=Math.min(push/2,a[a.length-1].gap)}
+  for(i=0;i<this.labels.length;i++){L=this.labels[i];L.el.style.left=L.x.toFixed(1)+'px';L.el.style.top=L.y.toFixed(1)+'px';L.el.style.opacity=L.at?clamp((p-L.at)/(1-L.at),0,1):1}};
+function mat(c,em){return new THREE.MeshStandardMaterial({color:c,roughness:.42,metalness:.15,emissive:c,emissiveIntensity:em==null?.05:em})}
+Chart.prototype.box=function(x,y0,z,w,h,d,c){var g=new THREE.BoxGeometry(w,1,d);g.translate(0,.5,0);var m=new THREE.Mesh(g,mat(c));m.position.set(x,y0,z);m.scale.y=.0001;m.castShadow=true;m.receiveShadow=true;this.root.add(m);return m};
+Chart.prototype.floor=function(w,d,st,zst){var gr=new THREE.Mesh(new THREE.PlaneGeometry(w+6,d+6),new THREE.ShadowMaterial({opacity:.4}));gr.rotation.x=-Math.PI/2;gr.receiveShadow=true;this.root.add(gr);
+  var pts=[],x,z,hx=w/2,hz=d/2;for(x=-hx;x<=hx+.001;x+=st)pts.push(new THREE.Vector3(x,.003,-hz),new THREE.Vector3(x,.003,hz));for(z=-hz;z<=hz+.001;z+=(zst||d/3))pts.push(new THREE.Vector3(-hx,.003,z),new THREE.Vector3(hx,.003,z));
+  this.root.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:COL.gold,transparent:true,opacity:.16})))};
+Chart.prototype.yaxis=function(ticks,x0,x1,z,map,fmt){var pts=[],self=this;ticks.forEach(function(t){var y=map(t);pts.push(new THREE.Vector3(x0,y,z),new THREE.Vector3(x1,y,z));self.tag(x0-.12,y,z,fmt(t),'ax l')});
+  this.root.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0x4A504B,transparent:true,opacity:.75})))};
+Chart.prototype.line=function(pts,c,r){var seg=(pts.length-1)*14,rad=10,g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts,false,'catmullrom',0),seg,r,rad,false),m=new THREE.Mesh(g,mat(c,.5));m.castShadow=true;this.root.add(m);
+  var e=new THREE.Mesh(new THREE.SphereGeometry(r*2.1,16,12),mat(c,.6));e.position.copy(pts[pts.length-1]);e.castShadow=true;this.root.add(e);
+  this.anim.push(function(p){g.setDrawRange(0,Math.floor(p*seg)*rad*6);e.visible=p>.985})};
+
+function nice(lo,hi){var raw=(hi-lo)/3,mag=Math.pow(10,Math.floor(Math.log(raw)/Math.LN10)),n=raw/mag,st=(n<1.5?1:n<3.5?2:n<7.5?5:10)*mag,a=[],v=Math.ceil(lo/st-1e-9)*st;for(;v<=hi+1e-9;v+=st)a.push(v);return a}
+function tick(v){return '$'+(Math.abs(v-Math.round(v))<1e-6?Math.round(v).toLocaleString('en-US'):v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}))}
+
+/* years across, dollars up, one tube a clause */
+function lineChart(C,cfg){C.clear();var nar=C.nar,n=cfg.years.length,XW=nar?1.55:3.0,x=function(i){return n<2?0:-XW+i*2*XW/(n-1)},lo=cfg.lo,hi=cfg.hi,y=function(v){return .35+(v-lo)/(hi-lo)*3.45},m=cfg.series.length;
+  C.floor(XW*2,2.4,n<2?1:2*XW/(n-1));
+  C.yaxis(nice(lo,hi),-XW-.3,XW+.3,-.7,y,tick);
+  cfg.years.forEach(function(yr,i){C.tag(x(i),0,1.3,'<b>'+(nar?"'"+String(yr).slice(2):yr)+'</b>','ax b')});
+  cfg.series.forEach(function(s,k){var z=(k-(m-1)/2)*-.16,pts=s.vals.map(function(v,i){return new THREE.Vector3(x(i),y(v),z)});
+    if(pts.length>1)C.line(pts,s.col,s.bold?.05:.036);
+    C.tag(x(n-1)+.08,y(s.vals[n-1]),z,'<b>'+usd(s.vals[n-1])+'</b><i>'+s.name+'</i>','end '+s.cls,{at:.82,grp:'end',gap:nar?18:37})});
+  (cfg.notes||[]).forEach(function(q){if(nar)return;var s=cfg.series[q.s];C.tag(x(q.i),y(s.vals[q.i])+.14,0,q.html,'note '+(q.cls||''),{at:.6})});
+  if(nar)C.setCam(.25,2.8,10.4,.25,1.85,0);else C.setCam(1.25,2.8,11.5,.62,1.88,0)}
+
+function buildHero(C){var S=[{k:'index',name:'Consumer Price Index',cls:'g',col:COL.sage},{k:'formula',name:'The formula',cls:'iv',col:COL.ivory,bold:1},{k:'fixed',x:.03,name:'Fixed 3% a year',cls:'y',col:COL.gold},{k:'limitYear',name:'Index limit',cls:'r',col:COL.clay}],F=formula(2019);
+  S.forEach(function(s){s.vals=vals(s.k,2019,s.x,1000)});
+  lineChart(C,{years:YEARS,series:S,lo:1000,hi:1262,notes:[{s:1,i:3,html:'<b>'+pc(F[2022]/F[2021]-1,true)+'</b><i>the formula in January 2022, metals</i>',cls:'iv lft'}]})}
+function buildAsk(C){var S=[{k:'formula',name:'The formula',cls:'iv',col:COL.ivory,bold:1},{k:'limitCatch',name:'Asks for the gap back',cls:'g',col:COL.sage},{k:'limitYear',name:"Asks the year's percent",cls:'r',col:COL.clay}];
+  S.forEach(function(s){s.vals=vals(s.k,2019,0,1000)});
+  lineChart(C,{years:YEARS,series:S,lo:1000,hi:1232,notes:[{s:1,i:4,html:'<b>Level again</b><i>January 2023</i>',cls:'g'}]})}
+
+function buildCost(C){C.clear();var nar=C.nar,XW=nar?1.9:3.0,n=7,st=2*XW/(n-1),k=3.8/125,bw=st*.6,dp=.7;
+  C.floor(XW*2+st,2.4,st);
+  C.yaxis([0,40,80,120],-XW-(nar?.42:.95),XW+.55,-.7,function(v){return v*k},tick);
+  YEARS.forEach(function(yr,i){var x=-XW+i*st,hr=D.rate[yr]*k,hb=D.ben[yr]*k,a=C.box(x,0,0,bw,hr,dp,COL.ivory),b=C.box(x,hr,0,bw,hb,dp,COL.stone);
+    C.anim.push(function(p){a.scale.y=Math.max(.0001,hr*p);b.position.y=hr*p;b.scale.y=Math.max(.0001,hb*p)});
+    C.tag(x,hr+hb+.07,0,'<b>'+(nar?usd3(lab(yr)).slice(1):usd3(lab(yr)))+'</b>','',{at:.75});
+    if(!nar){C.tag(x,hr*.5,dp/2,D.rate[yr].toFixed(2),'in dk',{at:.75});C.tag(x,hr+hb*.5,dp/2,D.benText[yr],'in',{at:.75})}
+    C.tag(x,0,1.25,'<b>'+(nar?"'"+String(yr).slice(2):yr)+'</b>'+(i&&!nar?'<i>'+pc(lab(yr)/lab(yr-1)-1,true)+'</i>':''),'ax b')});
+  if(nar)C.setCam(-.25,2.9,10.6,-.25,1.9,0);else C.setCam(.7,3.0,12.2,-.2,1.95,0)}
+
+function buildGrid(C){C.clear();var nar=C.nar,ys=[2019,2020,2021,2022,2023,2024],CL=[{k:'cap',x:.055,n:'5.50% cap'},{k:'index',x:0,n:nar?'Price index':'Consumer Price Index'},{k:'limitYear',x:0,n:'Index limit'},{k:'fixed',x:.03,n:'Fixed 3%'}];
+  var sx=nar?.98:.9,sz=nar?.74:.96,nx=nar?4:6,nz=nar?6:4,hx=nx*sx/2,hz=nz*sz/2;
+  C.floor(nx*sx,nz*sz,sx,sz);
+  ys.forEach(function(yr,yi){CL.forEach(function(c,ci){var v=against(c.k,yr,c.x),vd=verdict(v),h=.1+Math.max(0,-v)*100*.5,
+      x=nar?(ci-(nx-1)/2)*sx:(yi-(nx-1)/2)*sx,z=nar?(yi-(nz-1)/2)*sz:((nz-1)/2-ci)*sz,b=C.box(x,0,z,sx*.84,h,sz*.8,VC[vd]);
+    C.anim.push(function(p){b.scale.y=Math.max(.0001,h*p)});
+    C.tag(x,h+.01,z,pc(v,true),'in dk gv',{at:.72})})});
+  if(nar){CL.forEach(function(c,ci){C.tag((ci-(nx-1)/2)*sx,0,hz+.3,c.n,'ax b wrapname')});ys.forEach(function(yr,yi){C.tag(-hx-.12,.02,(yi-(nz-1)/2)*sz,String(yr),'ax l')});C.setCam(0,7.6,10.8,0,.35,.15)}
+  else{ys.forEach(function(yr,yi){C.tag((yi-(nx-1)/2)*sx,0,hz+.28,'<b>'+yr+'</b>','ax b')});C.tag(0,0,hz+.95,'Signed in January of','ttl b');
+    CL.forEach(function(c,ci){C.tag(-hx-.5,.02,((nz-1)/2-ci)*sz,c.n,'ax l')});C.setCam(.35,7.1,9.9,-.25,.5,0)}}
+
+var KN={fixed:function(x){return 'A fixed '+(x*100).toFixed(2)+'% a year'},indexCap:function(x){return 'Consumer Price Index, capped at '+(x*100).toFixed(2)+'%'},index:function(){return 'Consumer Price Index, no cap'},limitYear:function(){return "Index limit, year's percent asked"},limitCatch:function(){return 'Index limit, gap asked back'},cap:function(x){return 'The formula, capped at '+(x*100).toFixed(2)+'%'}};
+var TXT={g:'<b>Green.</b> Level with the formula or ahead of it. Leave the price and keep the clause.',y:'<b>Yellow.</b> Between 0.50% and 2.00% behind the formula. Close the gap at renewal, in one step or two.',r:'<b>Red.</b> More than 2.00% behind the formula. Re-price at renewal, and replace the clause or charge for it.'};
+function readTry(){var price=parseFloat(document.getElementById('iPrice').value),s=parseInt(document.getElementById('iYear').value,10),kind=document.getElementById('iKind').value,x=parseFloat(document.getElementById('iPct').value)/100;
+  if(!(price>0))price=1000;if(!(x>=0))x=0;if(x>.2)x=.2;return {price:price,s:s,kind:kind,x:x,usesPct:kind==='fixed'||kind==='indexCap'||kind==='cap'}}
+function showTry(C){var q=readTry(),F=formula(q.s),P=path(q.kind,q.s,q.x),a=P[2025]/F[2025]-1,vd=verdict(a),w=worth(q.kind,q.s,q.x),gapM=q.price*(F[2025]-P[2025]),name=KN[q.kind](q.x);
+  document.getElementById('lPct').className=q.usesPct?'':'off';document.getElementById('iPct').disabled=!q.usesPct;
+  var oa=document.getElementById('oAgainst');oa.textContent=Math.abs(a)<0.0005?'Level':pc(Math.abs(a));oa.className=vd;document.getElementById('oAgainstLab').textContent=(Math.abs(a)<0.0005?'with':a<0?'behind':'ahead of')+' the formula in January 2025';
+  document.getElementById('oShort').textContent=usd(Math.abs(gapM));document.getElementById('oShortLab').textContent=gapM>=0?'a month under the formula today':'a month above the formula today';
+  document.getElementById('oWorth').textContent=pc(w,true).replace('+','');
+  var chip=document.getElementById('oChip');chip.className='chip '+vd;chip.innerHTML=TXT[vd];
+  document.getElementById('oRows').innerHTML=yrs(q.s).map(function(y){var d=q.price*(P[y]-F[y]);return '<tr><td>'+y+'</td><td class="n">'+usd(q.price*F[y])+'</td><td class="n">'+usd(q.price*P[y])+'</td><td class="n">'+(Math.abs(d)<0.005?usd(0):(d<0?'-':'+')+usd(Math.abs(d)))+'</td></tr>'}).join('');
+  document.getElementById('kTry').style.background=vd==='g'?'var(--sage)':vd==='y'?'var(--gold)':'var(--clay)';document.getElementById('kTryName').textContent=name;
+  if(!C)return;var years=yrs(q.s),fv=years.map(function(y){return q.price*F[y]}),pv=years.map(function(y){return q.price*P[y]}),hi=Math.max(fv[fv.length-1],pv[pv.length-1],q.price*1.02),lo=Math.min(q.price,pv[pv.length-1],fv[fv.length-1]);
+  lineChart(C,{years:years,series:[{name:'The formula',cls:'iv',col:COL.ivory,bold:1,vals:fv},{name:'This clause',cls:vd,col:VC[vd],vals:pv}],lo:lo,hi:lo+(hi-lo)*1.04+1e-6});
+  C.dur=1100;if(!READY){C.state=0;return}C.state=0;if(STILL||RM){draw(C,1);C.state=2}else start(C)}
+
+var charts=[],byName={};
+if(renderer){
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.setClearColor(0x000000,0);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  [].forEach.call(document.querySelectorAll('.view'),function(v){var C=new Chart(v);C.name=v.getAttribute('data-chart');charts.push(C);byName[C.name]=C});
+}
+function isNar(C){return C.view.parentNode.clientWidth<620}
+function buildAll(){charts.forEach(function(C){C.nar=isNar(C);C.view.classList.toggle('nar',C.nar);C.view.parentNode.classList.toggle('flat',C.nar&&C.name==='grid');
+  if(C.name==='hero')buildHero(C);else if(C.name==='cost')buildCost(C);else if(C.name==='grid')buildGrid(C);else if(C.name==='ask')buildAsk(C);else showTry(C)})}
+showTry(null);
+var READY=false;
+if(renderer)buildAll();
+['iPrice','iYear','iKind','iPct'].forEach(function(id){var el=document.getElementById(id),go=function(){showTry(byName['try']||null)};el.addEventListener('input',go);el.addEventListener('change',go)});
+
+var RW=0,RH=0,RP=0,running=false;
+function draw(C,p){var w=C.view.clientWidth,h=C.view.clientHeight,pr=Math.min(window.devicePixelRatio||1,2),s=C.snap,W=Math.round(w*pr),H=Math.round(h*pr);if(w<10||h<10)return;
+  if(RW!==w||RH!==h||RP!==pr){renderer.setPixelRatio(pr);renderer.setSize(w,h,false);RW=w;RH=h;RP=pr}
+  C.cam.aspect=w/h;C.cam.updateProjectionMatrix();C.grow(p);renderer.clear();renderer.render(C.scene,C.cam);
+  if(s.width!==W||s.height!==H){s.width=W;s.height=H}else C.ctx.clearRect(0,0,W,H);
+  C.ctx.drawImage(renderer.domElement,0,0,W,H);C.place(p);C.p=p}
+function step(now){var any=false;charts.forEach(function(C){if(C.state!==1)return;if(!C.t0)C.t0=now;var q=clamp((now-C.t0)/C.dur,0,1);draw(C,ease(q));if(q>=1)C.state=2;else any=true});
+  if(any)requestAnimationFrame(step);else running=false}
+function start(C){C.state=1;C.t0=0;if(!running){running=true;requestAnimationFrame(step)}}
+function settle(){charts.forEach(function(C){draw(C,C.state===2?1:C.state===1?C.p:0)})}
+READY=true;
+if(renderer){
+  if(STILL||RM){charts.forEach(function(C){draw(C,1);C.state=2});if(STILL)document.title='stills '+charts.length}
+  else{charts.forEach(function(C){if(C.state===0)draw(C,0)});
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){var C=e.target._c;if(e.isIntersecting&&C&&C.state===0)start(C)})},{threshold:.2});charts.forEach(function(C){io.observe(C.view)})}
+    else charts.forEach(function(C){if(C.state===0)start(C)})}
+  var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){var ch=false,st=charts.map(function(C){return C.state});charts.forEach(function(C){if(isNar(C)!==C.nar)ch=true});
+    if(ch){buildAll();charts.forEach(function(C,i){C.state=st[i]===1?2:st[i]})}settle()},200)});
+}
+})();
+</script>
+</body>
+</html>
