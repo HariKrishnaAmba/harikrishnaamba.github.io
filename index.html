@@ -585,7 +585,7 @@ a.hs:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 1px rgba(255,255,25
 
   /* ================= the opening ================= */
   var hero=heroEl,intro=document.getElementById('intro'),seen=false,target=null;
-  try{var hid=decodeURIComponent((location.hash||'').slice(1));if(hid&&hid!=='top')target=document.getElementById(hid)}catch(e){}
+  try{var hid=decodeURIComponent((location.hash||'').slice(1));if(!hid){var qm=/[?&]to=([^&#]+)/.exec(location.search);if(qm)hid=decodeURIComponent(qm[1])}if(hid&&hid!=='top')target=document.getElementById(hid)}catch(e){}
   try{seen=sessionStorage.getItem('hka-open')==='1';sessionStorage.setItem('hka-open','1')}catch(e){}
   function openHero(){hero.classList.add('open');setTimeout(function(){small.draw(true)},STILL?0:700)}
   function endIntro(){if(!intro||intro.classList.contains('out'))return;intro.classList.add('out');openHero();setTimeout(function(){if(intro&&intro.parentNode)intro.parentNode.removeChild(intro)},1200)}
