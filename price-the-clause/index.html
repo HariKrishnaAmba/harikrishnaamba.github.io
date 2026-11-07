@@ -368,6 +368,9 @@ h3{margin:0;font:700 21px/1.3 var(--sans);letter-spacing:-.02em;color:var(--text
 footer{background:#000;color:#8E8E93}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:24px;font-size:13px}
 footer a{color:#C7C7CC}
+
+.pop{max-height:calc(100vh - 24px);overflow:auto}
+[data-h]{cursor:pointer}.pop.sheet{max-height:78vh;overflow:auto}.pop .m .ml{display:block}.pop .m .ml+.ml{margin-top:7px}
 </style>
 <script>document.documentElement.classList.add("js");if(/[?&]still/.test(location.search))document.documentElement.classList.add("still");</script>
 </head>
@@ -656,38 +659,108 @@ var T={fRise:pc(F19[2025]-1,true),cRise:pc(C19[2025]-1,true),lRise:pc(L19[2025]-
   redCount:String(red),gridMin:pc(mn,true),gridMax:pc(mx,true),askYear:String(lvl)};
 
 /* ---------- how each figure was counted ---------- */
-var lowYears=ADJ.map(function(y){return (1+Math.min(fy[y],cy[y])).toFixed(4)}).join(' &times; ');
-function yrList(o){return ADJ.map(function(y){return y+': '+pc(o[y])}).join(', ')}
+/* every number named, in plain words */
+function hP(t){return '<p>'+t+'</p>'}
+function hM(a){return '<p class="m">'+a.map(function(l){return '<span class="ml">'+l+'</span>'}).join('')+'</p>'}
+function neg2(v){return String(v).replace(/-/g,'&minus;')}
+function q2(v){return neg2((v*100).toFixed(2)+'%')}
+function q3(v){return neg2((v*100).toFixed(3)+'%')}
+function sg2(v){return neg2(pc(v,true))}
+function K(v){return usd(1000*v)}
+function PY(y){return '$'+(Math.round(LAB[y]*1000)/1000)}
+function x5(v){return (1+v).toFixed(5)}
+function upDown(v,d){return (v<0?'down ':'up ')+(d===3?q3(Math.abs(v)):q2(Math.abs(v)))}
+var payUp=LAB[2025]/LAB[2019]-1,metUp=D.met[2024]/D.met[2018]-1;
+var CN={cap:'the formula, capped at 5.50% a year',index:'consumer prices in place of the formula',limitYear:'the CPI cap',fixed:'a fixed 3% a year',limitCatch:'the CPI cap, gap asked back'};
+var WHY='Labor is 93.29% of the price and materials 6.71%, as the agreement writes them. Pay is the elevator mechanic\'s hourly rate plus benefits on January 1, from the U.S. Department of Labor. Metals is the government\'s metals price index for the December before.';
+function cmp(lead,lab,P,F,v,note){return hP(lead)+hM(['Cost formula price: '+K(F),lab+': '+K(P),K(P)+' &divide; '+K(F)+' &minus; 1 = '+sg2(v)])+(note?hP(note):'')}
+function fHow(y,extra){return hP('How much the cost formula said the price should rise in January '+y+', for the $1,000 contract signed in January 2019.')+
+  hM(['Formula price: '+K(F19[y-1])+' (Jan '+(y-1)+') &rarr; '+K(F19[y])+' (Jan '+y+'), '+upDown(fy[y])].concat(extra||[]))+
+  hP('Each January the formula price is 93.29% that follows pay since January 2019 plus 6.71% that follows metals since December 2018. From one year to the next the two parts no longer weigh exactly 93.29% and 6.71%, because each has grown at its own speed, so the yearly rise is read off the two prices.')}
+function cpiHow(y,lead){return hP(lead)+hM(['Consumer Price Index: '+D.cpi[y-2]+' (Dec '+(y-2)+') &rarr; '+D.cpi[y-1]+' (Dec '+(y-1)+'), '+upDown(cy[y])])}
+function lossHow(y){return hP('January '+y+': consumer prices rose '+q3(cy[y])+' and the cost formula said '+q3(fy[y])+'. The clause paid the lower rise, consumer prices.')+
+  hM([x5(cy[y])+' &divide; '+x5(fy[y])+' &minus; 1 = '+sg2(loss[y])])+
+  hP('A rise of '+q3(cy[y])+' multiplies the price by '+x5(cy[y])+', and a rise of '+q3(fy[y])+' by '+x5(fy[y])+'. Dividing the two shows how far under the formula that year\'s raise left the price.')}
+function mgHow(m){return hP('If the provider\'s costs follow the formula, every dollar the clause holds back comes out of profit. At a '+m+'% margin, profit is '+m+'% of the price, and the clause holds back '+(-a19*100).toFixed(4)+'% of the price:')+
+  hM([(-a19*100).toFixed(4)+'% &divide; '+m+'% = '+pc(-a19/(m/100))+' of the profit'])}
+var redList=[];[['limitYear',0,'CPI cap'],['fixed',.03,'Fixed 3% a year'],['index',0,'Consumer prices'],['cap',.055,'The formula, capped at 5.50%']].forEach(function(c){SIGN.forEach(function(s){var v=against(c[0],s,c[1]);if(v<RULE.red)redList.push(c[2]+', signed '+s+': '+sg2(v))})});
 var HOW={
-  fRise:'<p>The agreement\'s own formula, for a contract signed in January 2019, read in January 2025:</p><p class="m">93.29% &times; '+LAB[2025].toFixed(2)+' &divide; '+LAB[2019].toFixed(3)+' + 6.71% &times; '+D.met[2024]+' &divide; '+D.met[2018]+' = '+n4(F19[2025])+'</p><p>Pay is the mechanic\'s hourly rate plus benefits on January 1. Metals is the index for the December before.</p>',
-  cRise:'<p>The Consumer Price Index, December 2024 over December 2018: the six years that fed the six January adjustments.</p><p class="m">'+D.cpi[2024]+' &divide; '+D.cpi[2018]+' = '+n4(C19[2025])+'</p>',
-  lRise:'<p>Each January the price rose by the lower of the two numbers. Compounded over six adjustments:</p><p class="m">'+lowYears+' = '+n4(L19[2025])+'</p>',
-  aLim:'<p>The price in January 2025 against the cost formula, same contract, same start:</p><p class="m">'+n4(L19[2025])+' &divide; '+n4(F19[2025])+' &minus; 1 = '+pc(a19,true)+'</p>',
-  cpi2021:'<p>Consumer prices for the year ahead of the January 2021 adjustment:</p><p class="m">'+D.cpi[2020]+' &divide; '+D.cpi[2019]+' &minus; 1 = '+pc(cy[2021])+'</p>',
-  cpi2022:'<p>Consumer prices ahead of January 2022:</p><p class="m">'+D.cpi[2021]+' &divide; '+D.cpi[2020]+' &minus; 1 = '+pc(cy[2022])+'</p>',
-  cpi2023:'<p>Consumer prices ahead of January 2023:</p><p class="m">'+D.cpi[2022]+' &divide; '+D.cpi[2021]+' &minus; 1 = '+pc(cy[2023])+'</p>',
-  f2021:'<p>The cost formula\'s own rise at January 2021, for a contract signed in 2019:</p><p class="m">'+n4(F19[2021])+' &divide; '+n4(F19[2020])+' &minus; 1 = '+pc(fy[2021])+'</p>',
-  f2022:'<p>The cost formula\'s rise at January 2022; metals had jumped the year before:</p><p class="m">'+n4(F19[2022])+' &divide; '+n4(F19[2021])+' &minus; 1 = '+pc(fy[2022])+'</p>',
-  f2023:'<p>The cost formula\'s rise at January 2023:</p><p class="m">'+n4(F19[2023])+' &divide; '+n4(F19[2022])+' &minus; 1 = '+pc(fy[2023])+'</p>',
-  loss2020:'<p>What the clause paid against what the formula said, January 2020:</p><p class="m">(1 + '+pc(cy[2020])+') &divide; (1 + '+pc(fy[2020])+') &minus; 1 = '+pc(loss[2020],true)+'</p>',
-  loss2021:'<p>January 2021:</p><p class="m">(1 + '+pc(cy[2021])+') &divide; (1 + '+pc(fy[2021])+') &minus; 1 = '+pc(loss[2021],true)+'</p>',
-  loss2025:'<p>January 2025, consumer prices under the formula by a hair:</p><p class="m">(1 + '+(cy[2025]*100).toFixed(4)+'%) &divide; (1 + '+(fy[2025]*100).toFixed(4)+'%) &minus; 1 = '+pc(loss[2025],true)+'</p>',
-  payMin:'<p>Rate plus benefits, each January over the one before:</p><p class="m">'+yrList(pay)+'</p>',
-  cpiMin:'<p>Consumer prices ahead of each January adjustment:</p><p class="m">'+yrList(cy)+'</p>',
-  houMin:'<p>Houston, rate plus benefits each January 1:</p><p class="m">'+[2022,2023,2024,2025].map(function(y){return y+': $'+D.hou[y][0]+' + $'+D.hou[y][1]}).join(', ')+'</p><p>Benefits match Chicago\'s to the cent in all four years.</p>',
-  wLab:'<p>The agreement prices the work at $945.50 a month: $882.06 of labor and $63.44 of materials.</p><p class="m">882.06 &divide; 945.50 = '+pc(D.wLab)+'; 63.44 &divide; 945.50 = '+pc(D.wMet)+'</p>',
-  exNew:'<p>The first adjustment, January 2020:</p><p class="m">$'+(1000*D.wLab).toFixed(2)+' &times; '+LAB[2020].toFixed(3)+' &divide; '+LAB[2019].toFixed(3)+' + $'+(1000*D.wMet).toFixed(2)+' &times; '+D.met[2019]+' &divide; '+D.met[2018]+' = '+usd(1000*F19[2020])+'</p>',
-  gapMonth:'<p>January 2025, a contract that started at $1,000 a month:</p><p class="m">'+usd(1000*F19[2025])+' &minus; '+usd(1000*L19[2025])+' = '+usd(gapMonth)+'</p>',
-  short72:'<p>Every month from January 2019 to December 2024, the formula price less the clause price, added up:</p><p class="m">'+usd(1000*pF)+' &minus; '+usd(1000*pL)+' = '+usd(short72)+'</p>',
-  wLim:'<p>The rise in the starting price that would bring 72 months under the clause up to 72 months under the formula:</p><p class="m">'+usd(1000*pF)+' &divide; '+usd(1000*pL)+' &minus; 1 = '+pc(wLim)+'</p>',
-  per100:'<p>Revenue these contracts would bill in 2025 under the formula, times the share the clause holds back:</p><p class="m">$100,000,000 &times; '+(-a19*100).toFixed(4)+'% = '+usd(per100)+'</p>',
-  mg15:'<p>The price gap as a share of the profit the formula price would carry, at a 15% margin:</p><p class="m">'+(-a19*100).toFixed(4)+'% &divide; 15% = '+pc(-a19/.15)+'</p>',
-  mg25:'<p>At a 25% margin:</p><p class="m">'+(-a19*100).toFixed(4)+'% &divide; 25% = '+pc(-a19/.25)+'</p>',
-  prodBE:'<p>Hours per contract falling by h each year cut the labor part by (1 &minus; h) a year. The h that brings cost down to the clause price in January 2025:</p><p class="m">93.29% &times; '+n4(Lr)+' &times; (1 &minus; h)<sup>6</sup> + 6.71% &times; '+n4(Mr)+' = '+n4(L19[2025])+'</p><p class="m">h = '+(prodBE*100).toFixed(4)+'% a year</p>',
-  redCount:'<p>Four clauses, six signing years, 24 contracts in all. Red means the January 2025 price is more than 2.00% under the formula.</p>',
-  askYear:'<p>CPI cap, gap asked back: each January the price may rise by consumer prices, up to the formula\'s level. It caught the formula in January '+lvl+'.</p>'
+  fRise:hP('How far the agreement\'s own cost formula moved the price of a contract signed in January 2019, by January 2025.')+
+    hM(['Mechanic pay: '+PY(2019)+' an hour (Jan 2019) &rarr; '+PY(2025)+' (Jan 2025), '+upDown(payUp),
+        'Metals index: '+D.met[2018]+' (Dec 2018) &rarr; '+D.met[2024]+' (Dec 2024), '+upDown(metUp),
+        '93.29% &times; '+q2(payUp)+' + 6.71% &times; '+q2(metUp)+' = '+q2(F19[2025]-1)])+
+    hP('So a $1,000 price becomes '+K(F19[2025])+'. '+WHY),
+  cRise:hP('How much consumer prices rose over the six years behind the six January adjustments.')+
+    hM(['Consumer Price Index: '+D.cpi[2018]+' (Dec 2018) &rarr; '+D.cpi[2024]+' (Dec 2024), '+upDown(C19[2025]-1)])+
+    hP('Each January adjustment uses the year to the December before it, so the adjustments from January 2020 to January 2025 cover December 2018 to December 2024. A $1,000 price that followed consumer prices would be '+K(C19[2025])+'.'),
+  lRise:hP('Each January the CPI cap pays the lower of two rises: the cost formula\'s rise or the rise in consumer prices. The six raises it paid:')+
+    hM(ADJ.map(function(y){return y+': up '+q3(Math.min(fy[y],cy[y]))+' ('+(cy[y]<fy[y]?'consumer prices':'the formula')+')'}))+
+    hM([ADJ.map(function(y){return (1+Math.min(fy[y],cy[y])).toFixed(6)}).join(' &times; ')+' = '+L19[2025].toFixed(6)+', up '+q2(L19[2025]-1)])+
+    hP('Each raise lands on the price the year before left, like compound interest, so the six raises multiply. A $1,000 price ends at '+K(L19[2025])+'.'),
+  aLim:cmp('The same $1,000 contract, signed in January 2019, priced two ways in January 2025:','CPI cap price',L19[2025],F19[2025],a19,
+    'Why not '+q2(F19[2025]-1).slice(0)+' minus '+q2(L19[2025]-1)+', which is '+q2(F19[2025]-L19[2025])+'? Those are points of the 2019 price. As a share of the January 2025 formula price, the same gap is '+pc(-a19)+'.'),
+  cpi2021:cpiHow(2021,'Consumer prices over 2020, the year behind the January 2021 adjustment:'),
+  cpi2022:cpiHow(2022,'Consumer prices over 2021, the year behind the January 2022 adjustment:'),
+  cpi2023:cpiHow(2023,'Consumer prices over 2022, the year behind the January 2023 adjustment:'),
+  f2021:fHow(2021),
+  f2022:fHow(2022,['Metals that year: '+D.met[2020]+' (Dec 2020) &rarr; '+D.met[2021]+' (Dec 2021), '+upDown(D.met[2021]/D.met[2020]-1)]),
+  f2023:fHow(2023,['Metals that year: '+D.met[2021]+' (Dec 2021) &rarr; '+D.met[2022]+' (Dec 2022), '+upDown(D.met[2022]/D.met[2021]-1)]),
+  loss2020:lossHow(2020),loss2021:lossHow(2021),loss2025:lossHow(2025),
+  payMin:hP('The elevator mechanic\'s pay, hourly rate plus benefits, each January against the January before:')+
+    hM(ADJ.map(function(y){return y+': '+PY(y-1)+' &rarr; '+PY(y)+', '+upDown(pay[y])}))+
+    hP('Lowest '+pc(payR[0])+', highest '+pc(payR[1])+'. Through a pandemic and an inflation spike, the raise barely moved.'),
+  cpiMin:hP('Consumer prices over the year before each January adjustment, December to December:')+
+    hM(ADJ.map(function(y){return y+': '+D.cpi[y-2]+' &rarr; '+D.cpi[y-1]+', '+upDown(cy[y])}))+
+    hP('Lowest '+pc(cpiR[0])+', highest '+pc(cpiR[1])+': a swing of more than five times.'),
+  houMin:hP('Houston elevator mechanics, hourly rate plus benefits on January 1:')+
+    hM([2022,2023,2024,2025].map(function(y){return y+': $'+D.hou[y][0]+' + $'+D.hou[y][1]+' = $'+(Math.round(HL[y]*1000)/1000)}))+
+    hM([2023,2024,2025].map(function(y){return y+': $'+(Math.round(HL[y-1]*1000)/1000)+' &rarr; $'+(Math.round(HL[y]*1000)/1000)+', '+upDown(hou[y])}))+
+    hP('Benefits match Chicago\'s to the cent in all four years, so the steady raise is the trade\'s pattern, not one city\'s.'),
+  wLab:hP('The agreement prices the work at $945.50 a month: $882.06 of labor and $63.44 of materials.')+
+    hM(['Labor: $882.06 &divide; $945.50 = '+pc(D.wLab),'Materials: $63.44 &divide; $945.50 = '+pc(D.wMet)])+
+    hP('These two shares decide how much of each January\'s change follows pay and how much follows metals.'),
+  exNew:hP('The first January adjustment, in January 2020, for a $1,000 contract signed in January 2019:')+
+    hM(['Mechanic pay: '+PY(2019)+' (Jan 2019) &rarr; '+PY(2020)+' (Jan 2020), '+upDown(pay[2020],3),
+        'Metals index: '+D.met[2018]+' (Dec 2018) &rarr; '+D.met[2019]+' (Dec 2019), '+upDown(D.met[2019]/D.met[2018]-1,3),
+        '93.29% &times; '+q3(pay[2020])+' + 6.71% &times; ('+q3(D.met[2019]/D.met[2018]-1)+') = '+q3(F19[2020]-1),
+        '$1,000 &times; '+x5(F19[2020]-1)+' = '+K(F19[2020])]),
+  gapMonth:hP('January 2025, the $1,000 contract signed in January 2019:')+
+    hM(['Cost formula price: '+K(F19[2025]),'CPI cap price: '+K(L19[2025]),K(F19[2025])+' &minus; '+K(L19[2025])+' = '+usd(gapMonth)])+
+    hP('That shortfall repeats every month from January 2025 on, on each $1,000 of starting price.'),
+  short72:hP('Every month from January 2019 to December 2024, 72 in all: each year\'s monthly price, twelve times, added up.')+
+    hM(['Under the cost formula: '+usd(1000*pF),'Under the CPI cap: '+usd(1000*pL),usd(1000*pF)+' &minus; '+usd(1000*pL)+' = '+usd(short72)])+
+    hP('The price for each year is in the data download at the bottom of the page.'),
+  wLim:hP('How much higher the January 2019 starting price would have had to be, under the same CPI cap, to bill as much over the 72 months as the formula:')+
+    hM([usd(1000*pF)+' &divide; '+usd(1000*pL)+' &minus; 1 = '+pc(wLim)])+
+    hP('Start '+pc(wLim)+' higher and the CPI cap bills the same six-year total as the formula. That is the price of the clause.'),
+  per100:hP('Contracts that would bill $100 million in 2025 under the cost formula bill '+pc(-a19)+' less under the CPI cap. That is the gap from the headline:')+
+    hM(['$100,000,000 &times; '+pc(-a19)+' = $'+(per100/1e6).toFixed(2)+' million']),
+  mg15:mgHow(15),mg20:mgHow(20),mg25:mgHow(25),mg30:mgHow(30),
+  prodBE:hP('How much faster mechanics would have to get, every year, for the provider\'s cost to rise only as far as the CPI cap price: '+q2(L19[2025]-1)+' by January 2025 instead of the formula\'s '+q2(F19[2025]-1)+'.')+
+    hM(['Pay '+upDown(payUp)+': labor cost &times; '+(1+payUp).toFixed(4),'Metals '+upDown(metUp)+': materials cost &times; '+(1+metUp).toFixed(4),
+        'With h% fewer hours on every contract each year, for six years:','93.29% &times; '+(1+payUp).toFixed(4)+' &times; (1 &minus; h)<sup>6</sup> + 6.71% &times; '+(1+metUp).toFixed(4)+' = '+L19[2025].toFixed(4),'h = '+pc(prodBE)+' a year'])+
+    hP('Mechanics would need to finish every contract '+pc(prodBE)+' faster each year, six years running, just for the CPI cap price to keep up with cost. Under the formula, that saving would be the provider\'s to keep.'),
+  redCount:hP('Each cell is one contract: signed that January, under that clause, priced in January 2025 against the cost formula. Four clauses times six signing years make 24 contracts. Red means more than 2.00% under the formula.')+
+    hM(redList)+hP('Every red cell was signed in 2019 or 2020. Tap any cell for its own count.'),
+  askYear:hP('The same CPI cap, asked a different way: the price rises with consumer prices each January, held at the formula\'s price level rather than its yearly rise, so a high year can make up a low one. A $1,000 contract signed in January 2019:')+
+    hM(ADJ.map(function(y){var lv=K(catchP[y])===K(F19[y]);return 'Jan '+y+': '+K(catchP[y])+(lv?', level with the formula':' vs formula '+K(F19[y]))}))+
+    hP('Level from January '+lvl+'. In 2025 consumer prices came in a hair under the formula, so it sits '+usd(1000*(F19[2025]-catchP[2025]))+' behind. Asking only for each year\'s rise left it '+pc(-a19)+' behind.'),
+  s_base:cmp('The clause as the agreement writes it, 93.29% labor and 6.71% metals. This is the headline figure:','CPI cap price',L19[2025],F19[2025],a19),
+  s_met:(function(){var o={met:flat},Fm=formula(2019,o),Pm=path('limitYear',2019,0,o);return cmp('Suppose metal prices never moved, so only pay moves the formula. The $1,000 contract signed in January 2019, in January 2025:','CPI cap price',Pm[2025],Fm[2025],S.met)})(),
+  s_lab:(function(){var o={wl:1},Fm=formula(2019,o),Pm=path('limitYear',2019,0,o);return cmp('Suppose the whole price follows pay, with no metals in the formula at all. The $1,000 contract signed in January 2019, in January 2025:','CPI cap price',Pm[2025],Fm[2025],S.lab)})(),
+  s_rate:(function(){var o={lab:rateOnly},Fm=formula(2019,o),Pm=path('limitYear',2019,0,o);return cmp('Suppose labor follows the hourly rate only, with benefits left out. The $1,000 contract signed in January 2019, in January 2025:','CPI cap price',Pm[2025],Fm[2025],S.rate)})(),
+  s_share:hP('Every labor share from 80.00% to 100.00%, in steps of 0.01%: 2,001 versions of the formula, each counted the same way as the headline.')+
+    hM(['Closest to the formula: '+(shLo.w*100).toFixed(2)+'% labor, '+sg2(shLo.v),'Furthest behind: '+(shHi.w*100).toFixed(2)+'% labor, '+sg2(shHi.v)])+hP('All 2,001 stay past the 2.00% re-price line.'),
+  s_y2020:(function(){var Fm=formula(2020),Pm=path('limitYear',2020);return cmp('The same clause on a contract signed a year later, in January 2020, priced in January 2025:','CPI cap price',Pm[2025],Fm[2025],S.y2020)})()
 };
-HOW.payMax=HOW.payMin;HOW.cpiMax=HOW.cpiMin;HOW.houMax=HOW.houMin;HOW.mg20=HOW.mg15.replace(/15%/g,'20%').replace(pc(-a19/.15),pc(-a19/.20));HOW.mg30=HOW.mg25.replace(/25%/g,'30%').replace(pc(-a19/.25),pc(-a19/.30));HOW.gridMin=HOW.redCount;HOW.gridMax=HOW.redCount;HOW.wMet=HOW.wLab;
+[['limitYear',0,"the CPI cap, year's rise asked"],['fixed',.03,'a fixed 3% a year'],['limitCatch',0,'the CPI cap, gap asked back'],['cap',.055,'the formula, capped at 5.50% a year'],['index',0,'consumer prices in place of the formula']].forEach(function(r){var P=path(r[0],2019,r[1]),pP=paid(P,2019),v=worth(r[0],2019,r[1]);
+  HOW['pr_'+r[0]]=hP('How much the January 2019 starting price would need to change, under '+r[2]+', to bill as much over the 72 months to December 2024 as the cost formula:')+
+    hM(['Cost formula, 72 months: '+usd(1000*pF),'This clause, 72 months: '+usd(1000*pP),usd(1000*pF)+' &divide; '+usd(1000*pP)+' &minus; 1 = '+sg2(v)])+
+    hP(v<0?'Negative: this clause billed more than the formula, so the starting price could have been lower.':'Start that much higher and this clause bills the same six-year total as the formula.')});
+[['cap',.055],['index',0],['limitYear',0],['fixed',.03]].forEach(function(c){SIGN.forEach(function(s){var Fm=formula(s),Pm=path(c[0],s,c[1]),v=against(c[0],s,c[1]),vd=verdict(v);
+  HOW['heat_'+c[0]+s]=cmp('A $1,000 contract signed in January '+s+' under '+CN[c[0]]+', priced in January 2025:',c[0]==='limitYear'?'CPI cap price':'Price under this clause',Pm[2025],Fm[2025],v,
+    vd==='g'?'Green: level with the formula, ahead of it, or at most 0.50% behind. Leave the price.':vd==='y'?'Yellow: 0.50% to 2.00% behind the formula. Close the gap at renewal.':'Red: more than 2.00% behind the formula. Re-price at renewal.')})});
+HOW.payMax=HOW.payMin;HOW.cpiMax=HOW.cpiMin;HOW.houMax=HOW.houMin;HOW.wMet=HOW.wLab;HOW.gridMin=HOW.aLim;HOW.gridMax=HOW.heat_index2021;
 [].forEach.call(document.querySelectorAll('[data-f]'),function(e){var k=e.getAttribute('data-f');if(T[k]==null)return;e.textContent=T[k];
   if(HOW[k]){e.classList.add('f');e.setAttribute('tabindex','0');e.setAttribute('role','button')}});
 
@@ -737,7 +810,7 @@ function clock(svg){
 
 /* the seven January rates */
 document.getElementById('strip').innerHTML=YEARS.map(function(y,i){return '<div><span class="y">Jan '+y+'</span><span class="tt" data-k="st:tot'+y+'">$'+(Math.round(LAB[y]*1000)/1000)+'</span><span class="rb"><span data-k="st:rate'+y+'">'+D.rate[y].toFixed(2)+'</span> rate + <span data-k="st:ben'+y+'">'+D.ben[y]+'</span> benefits</span>'+
-  (i?'<span class="rs" data-k="st:rise'+y+'">+'+pc(pay[y])+'</span>':'<span class="rs o">start</span>')+'</div>'}).join('');
+  (i?'<span class="rs" data-k="st:rise'+y+'" data-h="payMin" tabindex="0" role="button">+'+pc(pay[y])+'</span>':'<span class="rs o">start</span>')+'</div>'}).join('');
 
 /* ---------- line charts in dollars ---------- */
 function lines(svg,cfg){
@@ -767,18 +840,18 @@ function drawC3(){lines(document.querySelector('#c3 svg'),{id:'c3',fit:1,years:Y
     ['Any labor share, 80% to 100%','all 2,001 shares, in steps of 0.01%','share'],['Signed a year later','January 2020 instead of January 2019','y2020']];
   var h='<div class="shead"><span>What we changed</span><span class="tk"><span style="left:'+xr+'">Re-price line, 2.00% behind</span></span></div>';
   h+=R.map(function(r){var bar;
-    if(r[2]==='share')bar='<i class="bar" style="--w:'+X(shLo.v)+'"></i><i class="ext" style="--sa:'+X(shLo.v)+';--w2:calc('+X(shHi.v)+' - '+X(shLo.v)+')"></i><span class="val" style="--e:'+X(shHi.v)+'"><span data-k="s:shLo">'+pc(shLo.v,true)+'</span> to <span data-k="s:shHi">'+pc(shHi.v,true)+'</span></span>';
-    else bar='<i class="bar" style="--w:'+X(S[r[2]])+'"></i><span class="val" style="--e:'+X(S[r[2]])+'" data-k="s:'+r[2]+'">'+pc(S[r[2]],true)+'</span>';
+    if(r[2]==='share')bar='<i class="bar" style="--w:'+X(shLo.v)+'"></i><i class="ext" style="--sa:'+X(shLo.v)+';--w2:calc('+X(shHi.v)+' - '+X(shLo.v)+')"></i><span class="val" style="--e:'+X(shHi.v)+'"><span data-k="s:shLo" data-h="s_share" tabindex="0" role="button">'+pc(shLo.v,true)+'</span> to <span data-k="s:shHi" data-h="s_share" tabindex="0" role="button">'+pc(shHi.v,true)+'</span></span>';
+    else bar='<i class="bar" style="--w:'+X(S[r[2]])+'"></i><span class="val" style="--e:'+X(S[r[2]])+'" data-k="s:'+r[2]+'" data-h="s_'+r[2]+'" tabindex="0" role="button">'+pc(S[r[2]],true)+'</span>';
     return '<div class="srow"><div class="sl"><b>'+r[0]+'</b><span>'+r[1]+'</span></div><div class="strk"><i class="rl" style="--x:'+xr+'"></i>'+bar+'</div></div>'}).join('');
   document.getElementById('stress').innerHTML=h})();
 /* ---------- heat table ---------- */
 (function(){var CL=[['cap',.055,'The formula, capped at 5.50%'],['index',0,'Consumer prices'],['limitYear',0,'CPI cap'],['fixed',.03,'Fixed 3% a year']];
   document.getElementById('heat').innerHTML='<thead><tr><th>Signed in January</th>'+SIGN.map(function(s){return '<th>'+s+'</th>'}).join('')+'</tr></thead><tbody>'+
-  CL.map(function(c){return '<tr><td>'+c[2]+'</td>'+SIGN.map(function(s){var v=against(c[0],s,c[1]);return '<td><span class="c'+verdict(v)+'" data-k="heat:'+c[0]+s+'">'+pc(v,true)+'</span></td>'}).join('')+'</tr>'}).join('')+'</tbody>'})();
+  CL.map(function(c){return '<tr><td>'+c[2]+'</td>'+SIGN.map(function(s){var v=against(c[0],s,c[1]);return '<td><span class="c'+verdict(v)+'" data-k="heat:'+c[0]+s+'" data-h="heat_'+c[0]+s+'" tabindex="0" role="button">'+pc(v,true)+'</span></td>'}).join('')+'</tr>'}).join('')+'</tbody>'})();
 /* ---------- the clause price list ---------- */
 (function(){var Z=16,PM=2.0,L=[['limitYear',0,"CPI cap, year's rise asked",'the clause on this page'],['fixed',.03,'A fixed 3% a year','college district, 2020'],['limitCatch',0,'CPI cap, gap asked back','the same cap, asked differently'],['cap',.055,'The formula, capped at 5.50%','the agreement\'s own cap'],['index',0,'Consumer prices in place of the formula','the buyer paid more than cost']];
   document.getElementById('plist').innerHTML=L.map(function(r){var v=worth(r[0],2019,r[1]),w=Math.abs(v)*100/PM*(100-Z-14),pos=v>=0,l=pos?Z:Z-w,lab=pos?'left:calc('+(Z+w)+'% + 12px)':'right:calc('+(100-l)+'% + 12px)';
-    return '<div class="prow rv"><div><b>'+r[2]+'</b><small>'+r[3]+'</small></div><div class="ptrk"><i class="z" style="--z:'+Z+'%"></i><i class="pb '+(pos?'pos':'neg')+'" style="--l:'+l.toFixed(2)+'%;--w:'+Math.max(w,0.6).toFixed(2)+'%"></i><span class="pv" style="'+lab+'" data-k="pr:'+r[0]+'">'+(pos?'+':'')+pc(v,true).replace('+','')+'</span></div></div>'}).join('')})();
+    return '<div class="prow rv"><div><b>'+r[2]+'</b><small>'+r[3]+'</small></div><div class="ptrk"><i class="z" style="--z:'+Z+'%"></i><i class="pb '+(pos?'pos':'neg')+'" style="--l:'+l.toFixed(2)+'%;--w:'+Math.max(w,0.6).toFixed(2)+'%"></i><span class="pv" style="'+lab+'" data-k="pr:'+r[0]+'" data-h="pr_'+r[0]+'" tabindex="0" role="button">'+(pos?'+':'')+pc(v,true).replace('+','')+'</span></div></div>'}).join('')})();
 
 /* ---------- try a contract ---------- */
 var KN={fixed:function(x){return 'A fixed '+(x*100).toFixed(2)+'% a year'},index:function(){return 'Consumer prices'},limitYear:function(){return "CPI cap, year's rise"},limitCatch:function(){return 'CPI cap, gap asked back'},cap:function(x){return 'The formula, capped at '+(x*100).toFixed(2)+'%'}};
@@ -824,10 +897,10 @@ function closePop(){pop.hidden=true;if(opener){opener.focus({preventScroll:true}
 function openPop(e){var k=e.getAttribute('data-f')||e.getAttribute('data-h');if(!HOW[k])return;opener=e;
   pop.innerHTML='<button type="button" aria-label="Close">&times;</button><p class="pk">How it was counted</p>'+HOW[k];pop.hidden=false;
   if(innerWidth<640){pop.className='pop sheet';pop.style.left='';pop.style.top=''}
-  else{pop.className='pop';var r=e.getBoundingClientRect(),pw=pop.offsetWidth,ph=pop.offsetHeight,l=Math.min(Math.max(12,r.left+r.width/2-pw/2),innerWidth-pw-12),t=r.bottom+10;if(t+ph>innerHeight-12)t=r.top-ph-10;pop.style.left=(l+scrollX)+'px';pop.style.top=(t+scrollY)+'px'}
+  else{pop.className='pop';var r=e.getBoundingClientRect(),pw=pop.offsetWidth,ph=pop.offsetHeight,l=Math.min(Math.max(12,r.left+r.width/2-pw/2),innerWidth-pw-12),t=r.bottom+10;if(t+ph>innerHeight-12)t=r.top-ph-10;t=Math.min(Math.max(t,12),Math.max(12,innerHeight-ph-12));pop.style.left=(l+scrollX)+'px';pop.style.top=(t+scrollY)+'px'}
   pop.querySelector('button').addEventListener('click',closePop)}
 document.addEventListener('click',function(ev){var f=ev.target.closest&&ev.target.closest('.f,[data-h]');if(f){ev.preventDefault();openPop(f);return}if(!pop.hidden&&!pop.contains(ev.target))closePop()});
-document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!pop.hidden)closePop();var f=document.activeElement;if((ev.key==='Enter'||ev.key===' ')&&f&&f.classList&&f.classList.contains('f')){ev.preventDefault();openPop(f)}});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!pop.hidden)closePop();var f=document.activeElement;if((ev.key==='Enter'||ev.key===' ')&&f&&f.classList&&(f.classList.contains('f')||(f.hasAttribute('data-h')&&f.tagName!=='BUTTON'))){ev.preventDefault();openPop(f)}});
 var popW=innerWidth;window.addEventListener('resize',function(){if(innerWidth!==popW){popW=innerWidth;if(!pop.hidden)pop.hidden=true}});
 
 /* ---------- the data, to check it yourself ---------- */
